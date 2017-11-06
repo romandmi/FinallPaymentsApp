@@ -64,4 +64,42 @@ public class BankAccountServiceImpl implements BankAccountService {
             if(sess != null) sess.close();
         }
     }
+
+    @Override
+    public BankAccount getById(long id) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+        BankAccount bankAccount = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                Query q = sess.createQuery("from BankAccount where id = :id");
+                q.setParameter("id", id);
+                bankAccount = (BankAccount)q.list().get(0);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while making query");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+
+        if(bankAccount == null) throw new RuntimeException("BankAccount  not found");
+        return bankAccount;
+
+    }
 }

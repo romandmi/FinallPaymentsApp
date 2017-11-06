@@ -1,6 +1,6 @@
 package com.jcg.examples.controller;
 
-import com.jcg.examples.models.BankAccount;
+import com.jcg.examples.models.*;
 import com.jcg.examples.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.jcg.examples.forms.ListUserForm;
 import com.jcg.examples.forms.UserRow;
-import com.jcg.examples.models.Transfer;
-import com.jcg.examples.models.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +26,8 @@ public class UserController {
     private UserService userService = new UserServiceImpl();
     private TransactionService transactionService = new TransactionServiceImpl();
     private BankAccountService bankAccountService = new BankAccountServiceImpl();
+    private ClientService clientService = new ClientServiceImpl();
+    private CardService cardService = new CardServiceImpl();
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String indexUser() {
@@ -85,6 +86,41 @@ public class UserController {
         }
         m.addObject("users",users);
         return m;
+    }
+
+    @RequestMapping(value = "/user/show_user_bank-accounts")
+    public ModelAndView showBankAccounts(HttpServletRequest request){
+        ModelAndView m = new ModelAndView("showUserBankAccounts");
+        List<Card> cards = new LinkedList<Card>();
+        List<BankAccount> bankAccs = new LinkedList<BankAccount>();
+        //User user = (User)request.getSession().getAttribute("currentUser");
+        Client client = null;
+        try {
+            //TODO we should get user from current session
+            User user = userService.findById(4);
+            client = clientService.findByUserId(user.getId());
+            cards = cardService.findByClientId(client.getId());
+            for (Card c: cards) {
+                bankAccs.add(bankAccountService.getById(c.getAccount_id()));
+            }
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addObject("error", e.getMessage());
+            return m;
+        }
+        m.addObject("bankAccs",bankAccs);
+        return m;
+    }
+
+    @RequestMapping(value = "/user/show_user_bank-accounts/change_status/{id}", method = RequestMethod.GET)
+    public String changeUserBankAccountStatus(@PathVariable("id") long id){
+        try {
+            bankAccountService.changeStatusById(id);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "redirect:/user/show_user_bank-accounts";
+        }
+        return "redirect:/user/show_user_bank-accounts";
     }
 
     @RequestMapping(value = "/admin/show_bank-accounts")

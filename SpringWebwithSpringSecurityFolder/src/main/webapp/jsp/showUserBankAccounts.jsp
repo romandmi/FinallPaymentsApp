@@ -6,7 +6,7 @@
     <jsp:include page="includeFile.jsp"></jsp:include>
   </head>
   <body>
-  <jsp:include page="navigationAdminBar.jsp"></jsp:include>
+  <jsp:include page="navigationUserBar.jsp"></jsp:include>
   <div class="container">
     <h1>List of Bank Accounts</h1>
 <table class="table table-striped">
@@ -27,14 +27,12 @@
       <td><c:out value="${bankAcc.balance}"/></td>
       <c:if test="${bankAcc.is_blocked == true}">
           <td>Blocked</td>
-          <td><a class="btn btn-primary"
-          href="<c:url value="/admin/show_bank-accounts/change_status/${bankAcc.id}"/>"
-          role="button">Unblock</a></td>
+          <td></td>
       </c:if>
       <c:if test="${bankAcc.is_blocked == false}">
            <td>Not Blocked</td>
            <td><a class="btn btn-warning"
-            href="<c:url value="/admin/show_bank-accounts/change_status/${bankAcc.id}"/>"
+            href="<c:url value="/user/show_user_bank-accounts/change_status/${bankAcc.id}"/>"
            role="button">Block</a></td>
       </c:if>
     </tr>
