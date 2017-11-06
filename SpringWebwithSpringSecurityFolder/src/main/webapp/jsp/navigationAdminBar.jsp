@@ -13,7 +13,7 @@
             <li><a href="/SpringWebwithSpringSecurity/admin/show_transactions">Show transactions</a></li>
             <li><a href="/SpringWebwithSpringSecurity/admin/about">About</a></li>
             <li style ="float:right;"><a href="/SpringWebwithSpringSecurity/logout">Logout</a></li>
-            <li style="float:right;"><a href="/SpringWebwithSpringSecurity/admin/settings">Hello, Admin</a></li>
+            <li style="float:right;"><a href="/SpringWebwithSpringSecurity/admin/settings">Hello, <%= request.getUserPrincipal().getName() %></a></li>
           </ul>
         </div>
   </div>

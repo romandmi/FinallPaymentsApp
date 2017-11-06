@@ -10,7 +10,7 @@
             <li><a href="/SpringWebwithSpringSecurity/user/block">Manage My Bank Accounts</a></li>
             <li><a href="/SpringWebwithSpringSecurity/user/about">About</a></li>
             <li style="float:right;"><a href="/SpringWebwithSpringSecurity/logout">Logout</a></li>
-            <li style="float:right;"><a href="/SpringWebwithSpringSecurity/user/settings">Hello, User</a></li>
+            <li style="float:right;"><a href="/SpringWebwithSpringSecurity/user/settings">Hello, <%= request.getUserPrincipal().getName() %></a></li>
           </ul>
         </div>
   </div>
