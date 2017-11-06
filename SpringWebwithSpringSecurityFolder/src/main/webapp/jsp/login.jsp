@@ -7,18 +7,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
+<jsp:include page="includeFile.jsp"></jsp:include>
 </head>
 <body>
+<br></br><br></br><br></br>
+<div class="container">
 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
       <font color="red">
         Your login attempt was not successful due to <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
       </font>
 </c:if>
+<div type="div-login">
 	<form name="loginForm" action="authenticateUser" method="post">
-		User-name<input type="text" name="username" /><br /> Password <input
-			type="password" name="password" /> <input type="hidden"
-			name="${_csrf.parameterName}" value="${_csrf.token}" /> <input
-			type="submit" value="Submit">
+		<p> Login</p>
+		<p><input class = "text-login" type="text" name="username" /></p>
+		<p>Password </p>
+		<p><input
+			type="password" class = "text-login" name="password" /> <input type="hidden"
+			name="${_csrf.parameterName}" value="${_csrf.token}" /></p>
+			<br> <input class ="submit-login" type="submit" value="Submit"> </br>
 	</form>
+</div>
+</div>
 </body>
 </html>
