@@ -1,5 +1,7 @@
 package com.jcg.examples.controller;
 
+import com.jcg.examples.models.BankAccount;
+import com.jcg.examples.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,42 +14,61 @@ import com.jcg.examples.forms.ListUserForm;
 import com.jcg.examples.forms.UserRow;
 import com.jcg.examples.models.Transfer;
 import com.jcg.examples.models.User;
-import com.jcg.examples.services.TransactionService;
-import com.jcg.examples.services.TransactionServiceImpl;
-//import com.jcg.examples.services.TransactionService;
-//import com.jcg.examples.services.TransactionServiceImpl;
-import com.jcg.examples.services.UserService;
-import com.jcg.examples.services.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-//import paymentsystem.services.TransactionService;
-//import paymentsystem.services.TransactionServiceImpl;
 
 @Controller
 public class UserController {
 
     private UserService userService = new UserServiceImpl();
     private TransactionService transactionService = new TransactionServiceImpl();
+    private BankAccountService bankAccountService = new BankAccountServiceImpl();
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String index() {
-        return "index";
+    public String indexUser() {
+        return "homeUserPage";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String indexAdmin() {
+        return "homeAdminPage";
+    }
+
+    @RequestMapping(value = "/user/about", method = RequestMethod.GET)
+    public String aboutUser() {
+        return "aboutUserPage";
+    }
+
+    @RequestMapping(value = "/admin/about", method = RequestMethod.GET)
+    public String aboutAdmin() {
+        return "aboutAdminPage";
     }
 
     @RequestMapping(value = "/user/show_transactions", method = RequestMethod.GET)
     public ModelAndView showTransactions() {
-        return new ModelAndView("showTransactions");
+        ModelAndView m = new ModelAndView("showTransactionsForUser");
+        List<Transfer> tr;
+        int id = 3;
+        try {
+            tr = transactionService.selectAll(id);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addObject("error", e.getMessage());
+            return m;
+        }
+        m.addObject("transactions",tr);
+        return m;
     }
 
     @RequestMapping(value = "/admin/show_transactions", method = RequestMethod.GET)
     public ModelAndView showAllTransactions() {
         List<Transfer> tr = transactionService.selectAll();
-        ModelAndView m = new ModelAndView("showTransactions");
-        m.addObject("transactions", tr);
+        ModelAndView m = new ModelAndView("showTransactionsForAdmin");
+        m.addObject("transactions",tr);
         return m;
     }
 
@@ -62,19 +83,35 @@ public class UserController {
             m.addObject("error", e.getMessage());
             return m;
         }
-        m.addObject("users", users);
+        m.addObject("users",users);
         return m;
     }
 
-    @RequestMapping(value = "/admin/show_clients/unblock/{id}", method = RequestMethod.GET)
-    public String unblockUser(@PathVariable("id") int id) {
-        //TODO
-        return "redirect:/admin/show_users";
+    @RequestMapping(value = "/admin/show_bank-accounts")
+    public ModelAndView changeBankAccountStatus(){
+        ModelAndView m = new ModelAndView("showBankAccounts");
+        //FIXME
+        List<BankAccount> bankAccs = new LinkedList<BankAccount>();
+        try {
+            bankAccs = bankAccountService.selectAll();
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addObject("error", e.getMessage());
+            return m;
+        }
+        m.addObject("bankAccs",bankAccs);
+        return m;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String indexAdmin() {
-        return "startPageForAdmin";
+    @RequestMapping(value = "/admin/show_bank-accounts/change_status/{id}", method = RequestMethod.GET)
+    public String changeBankAccountStatus(@PathVariable("id") long id){
+        try {
+            bankAccountService.changeStatusById(id);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "redirect:/admin/show_bank-accounts";
+        }
+        return "redirect:/admin/show_bank-accounts";
     }
 
     @RequestMapping(value = "/admin/create", method = RequestMethod.GET)
@@ -85,8 +122,6 @@ public class UserController {
 
     @RequestMapping(value = "/admin/create", method = RequestMethod.POST)
     public String submitCreateByAdmin(Model m, @ModelAttribute("user") User user) {
-        System.out.println(user.getLogin() + " " + user.getPassword() + " " + user.getIs_admin());
-        ;
         try {
             userService.save(user);
         } catch (RuntimeException e) {
@@ -98,15 +133,36 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable("id") long id) {
-        //userService.save();
+    public ModelAndView updateByAdmin(@PathVariable("id") long id) {
+        ModelAndView m = new ModelAndView("updateUserByAdmin");
+        User user = userService.findById(id);
+        m.addObject("user", user);
+        return m;
+    }
+
+    @RequestMapping(value = "/admin/update/{id}", method = RequestMethod.POST)
+    public String submitUpdateByAdmin(Model m, @ModelAttribute("user") User user) {
+        try {
+            //userService.update(user);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            m.addAttribute("user", user);
+            return "updateUserByAdmin";
+        }
         return "redirect:/admin/show_users";
     }
 
-    @RequestMapping(value = "/admin/find/{login}", method = RequestMethod.GET)
-    public ModelAndView findByLog(@PathVariable("login") String log) {
+    @RequestMapping(value = "/admin/find", method = RequestMethod.GET)
+    public String find() {
+        return "searchPage";
+    }
+
+    @RequestMapping(value = "/admin/find", method = RequestMethod.POST)
+    public ModelAndView findByLog(Model model, HttpServletRequest request) {
+        String log = request.getParameter("login");
         User user = new User();
-        ModelAndView m = new ModelAndView("successfulFound");
+        ModelAndView m = new ModelAndView("searchResults");
         try {
             user = userService.findByLog(log);
         } catch (RuntimeException e) {
@@ -114,12 +170,12 @@ public class UserController {
             m.addObject("error", e.getMessage());
             return m;
         }
-        m.addObject("login", user.getLogin());
+        m.addObject("user", user);
         return m;
     }
 
     @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.GET)
-    public String deleteById(@PathVariable("id") long id) {
+    public String deleteById(@PathVariable("id") long id ) {
 
         try {
             userService.deleteById(id);
@@ -129,28 +185,26 @@ public class UserController {
             return "createUserByAdmin";
         }
         return "redirect:/admin/show_users";
-
-
     }
 
 
     @RequestMapping(value = "/admin/delete_users")
     public ModelAndView delete(HttpServletRequest request) {
         List<User> users = userService.selectAll();
-        List<UserRow> ur = new ArrayList<UserRow>();
-        for (User u : users) {
+        List <UserRow>  ur = new ArrayList<UserRow>();
+        for (User u: users) {
             ur.add(new UserRow(u));
         }
         ListUserForm l = new ListUserForm();
         l.setList(ur);
-        return new ModelAndView("delsession hibernateeteUsers", "ListUserForm", l);
+        return new ModelAndView("deleteUsers","ListUserForm",l);
     }
 
     @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
     public String delete(@ModelAttribute("ListUserForm") ListUserForm listUserForm, BindingResult result) {
         //TODO
-        try {
-            List<UserRow> selectedList = listUserForm.getList();
+        try{
+            List<UserRow>  selectedList = listUserForm.getList();
             List<Long> id = new ArrayList();
             for (UserRow ur : selectedList) {
                 if (ur.isCheckControl() == false) {
@@ -161,8 +215,8 @@ public class UserController {
             for (int i = 0; i < id.size(); i++) {
                 userService.deleteById(id.get(i));
             }
-        } catch (Exception e) {
-        }
+        } catch(Exception e){}
         return "redirect:/admin/delete_users";
     }
 }
+

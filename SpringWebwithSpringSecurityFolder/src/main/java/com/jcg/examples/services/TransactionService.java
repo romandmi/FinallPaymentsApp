@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface TransactionService {
 	List<Transfer> selectAll();
+	List<Transfer> selectAll(int id);
 
 }

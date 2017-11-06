@@ -4,26 +4,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create new</title>
+    <title>Update</title>
     <jsp:include page="includeFile.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="navigationAdminBar.jsp"></jsp:include>
-<form:form name="getNewClient" method="POST">
+<form:form name="updateClient" method="POST">
     <div class="container">
-        <h1>Create a new client</h1>
+        <h1>Update a client</h1>
         <table class="table table-striped">
             <tr>
                 <td>Login</td>
-                <td><input type="text" name="login" /></td>
+                <td><input type="text" name="login" value="<c:out value="${user.login}"/>" /></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password" /></td>
+                <td><input type="text" name="password" value="<c:out value="${user.password}"/>" /></td>
             </tr>
             <tr>
                 <td>Role</td>
-                <td><input type="text" name="is_admin" /></td>
+                <td><input type="text" name="is_admin" value="<c:out value="${user.is_admin}"/>" /></td>
             </tr>
             <tr>
                 <td></td>
