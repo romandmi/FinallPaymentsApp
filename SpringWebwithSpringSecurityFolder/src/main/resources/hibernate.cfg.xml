@@ -17,14 +17,14 @@
         root
     </property>
     <property name="hibernate.connection.password">
-        t00r
+        1Irka2345
     </property>
 
-    <mapping class="paymentsystem.models.User" />
-    <mapping class="paymentsystem.models.Card" />
-    <mapping class="paymentsystem.models.Client" />
-    <mapping class="paymentsystem.models.Transfer" />
-    <mapping class="paymentsystem.models.BankAccount" />
+    <mapping class="com.jcg.examples.models.User" />
+    <mapping class="com.jcg.examples.models.Card" />
+    <mapping class="com.jcg.examples.models.Client" />
+    <mapping class="com.jcg.examples.models.Transfer" />
+    <mapping class="com.jcg.examples.models.BankAccount" />
 
 </session-factory>
 </hibernate-configuration>

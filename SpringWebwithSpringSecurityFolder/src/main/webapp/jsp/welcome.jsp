@@ -9,7 +9,7 @@
 </head>
 <body>
 Welcome! Your login was successful...!
-
+<c:if test="${user != null}">
 <c:redirect url="/user"/>
 
 <a href="<c:url value="/logout" />">Logout</a>

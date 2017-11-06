@@ -12,11 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
+
 @Controller
 public class CustomController {
-    @RequestMapping(value = "/welcome")
-    public ModelAndView welcomeUser() {
-        return new ModelAndView("welcome");
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String welcomeUser(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        if ("Chandan".equals(principal.getName())){
+            return "redirect:/user";
+        }
+        else{
+            return "redirect:/admin";
+        }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

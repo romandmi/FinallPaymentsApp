@@ -22,9 +22,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (authorizedUser(userName, password)) {
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(() -> {
-                return "AUTH_USER";
-            });
+            if ("Chandan".equals(userName)) {
+                grantedAuths.add(() -> {
+                    return "AUTH_USER";
+                });
+            }
+            else{
+                grantedAuths.add(() -> {
+                    return "AUTH_ADMIN";
+                });
+            }
             Authentication auth = new UsernamePasswordAuthenticationToken(userName, password, grantedAuths);
             System.out.println(auth.getAuthorities());
             return auth;
@@ -35,7 +42,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private boolean authorizedUser(String userName, String password) {
         System.out.println("username is :" + userName + " and password is " + password);
-        if ("Chandan".equals(userName) && "Chandan".equals(password))
+        if ("Chandan".equals(userName) && "Chandan".equals(password) || "admin".equals(userName) && "admin".equals(password))
             return true;
         return false;
     }

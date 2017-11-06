@@ -22,7 +22,8 @@
 		
 		<sec:intercept-url pattern="/login" access="permitAll" />
 		
-		<sec:intercept-url pattern="/**" access="hasAuthority('AUTH_USER')" />
+		<sec:intercept-url pattern="/user" access="hasAuthority('AUTH_USER')" />
+		<sec:intercept-url pattern="/admin" access="hasAuthority('AUTH_ADMIN')" />
 		
 		<sec:session-management invalid-session-url="/login" />
 		<sec:logout delete-cookies="JSESSIONID" logout-url="/logout" />
