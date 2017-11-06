@@ -12,24 +12,18 @@
 <form:form name="updateClient" method="POST">
     <div class="container">
         <h1>Update a client</h1>
-        <table class="table table-striped">
-            <tr>
-                <td>Login</td>
-                <td><input type="text" name="login" value="<c:out value="${user.login}"/>" /></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="text" name="password" value="<c:out value="${user.password}"/>" /></td>
-            </tr>
-            <tr>
-                <td>Role</td>
-                <td><input type="text" name="is_admin" value="<c:out value="${user.is_admin}"/>" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
+        <div type="div-form">
+                <p>Login</p>
+                <p><input class = "text-form" type="text" name="login" value="<c:out value="${user.login}"/>" /></p>
+
+                <p>Password</p>
+                <p><input class = "text-form" type="text" name="password" value="<c:out value="${user.password}"/>" /></p>
+
+                <p>Role</p>
+                <p><input class = "text-form" type="text" name="is_admin" value="<c:out value="${user.is_admin}"/>" /></p>
+
+                <br><input class ="submit-form" type="submit" value="Submit" /></br>
+        </div>
         <div style="color: red"><c:out value="${error}"/></div>
     </div>
 </form:form>

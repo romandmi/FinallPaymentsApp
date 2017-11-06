@@ -11,19 +11,20 @@
     <div class="container">
     <h1>Search Result</h1>
     <c:if test="${user != null}">
-        <table class="table table-striped">
+        <table class="table table-hover" style="width:40%">
         <thead>
-          <tr>
-                <td>ID</td>
-                <td>Login</td>
-                <td>Role</td>
-           </tr>
            </thead>
            <tbody>
+           <tr>
+           <td>ID</td>
+           <td><c:out value="${user.id}"/></td>
             <tr>
-              <td><c:out value="${user.id}"/></td>
-              <td><c:out value="${user.login}"/></td>
-              <td><c:out value="${user.is_admin}"/></td>
+            <td>Login</td>
+            <td><c:out value="${user.login}"/></td>
+            </tr>
+            <tr>
+            <td>Role</td>
+            <td><c:out value="${user.is_admin}"/></td>
             </tr>
           </tbody>
         </table>

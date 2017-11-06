@@ -12,24 +12,18 @@
 <form:form name="getNewClient" method="POST">
     <div class="container">
         <h1>Create a new client</h1>
-        <table class="table table-striped">
-            <tr>
-                <td>Login</td>
-                <td><input type="text" name="login" /></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name="password" /></td>
-            </tr>
-            <tr>
-                <td>Role</td>
-                <td><input type="text" name="is_admin" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
+        <div type="div-form">
+                <p>Login</p>
+                <p><input class = "text-form" type="text" name="login" /></p>
+
+                <p>Password</p>
+                <p><input class = "text-form" type="password" name="password" /></p>
+
+                <p>Role</p>
+                <p><input class = "text-form" type="text" name="is_admin" /></p>
+
+                <br><input class ="submit-form" type="submit" value="Submit" /></br>
+        </div>
         <div style="color: red"><c:out value="${error}"/></div>
     </div>
 </form:form>
