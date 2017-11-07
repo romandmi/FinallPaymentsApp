@@ -12,22 +12,23 @@
 <body>
 <br><br><br>
 <div class="container">
-<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-      <font color="red">
-        Your login attempt was not successful due to <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
-      </font>
-</c:if>
-<div type="div-login">
-	<form name="loginForm" action="authenticateUser" method="post">
-		<p> Login</p>
-		<p><input class = "text-login" type="text" name="username" /></p>
-		<p>Password </p>
-		<p><input
-			type="password" class = "text-login" name="password" /> <input type="hidden"
-			name="${_csrf.parameterName}" value="${_csrf.token}" /></p>
-			<br> <input class ="submit-login" type="submit" value="Submit">
-	</form>
-</div>
+	<div type="div-login">
+		<form name="loginForm" action="authenticateUser" method="post">
+			<p> Login</p>
+			<p><input class = "text-login" type="text" name="username" /></p>
+			<p>Password </p>
+			<p><input
+				type="password" class = "text-login" name="password" /> <input type="hidden"
+				name="${_csrf.parameterName}" value="${_csrf.token}" /></p>
+				<br> <input class ="submit-login" type="submit" value="Submit">
+		</form>
+	</div>
+	<p align="center">
+		<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+		<font color="red">
+			Your login attempt was not successful due to <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
+		</font>
+	</c:if></p>
 </div>
 </body>
 </html>

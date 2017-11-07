@@ -46,9 +46,9 @@ public class UserServiceImpl implements UserService{
 			if(sess != null) sess.close();
 		}
 		
-		if(user == null) throw new RuntimeException("User not found");
+		if(user == null)
+		    throw new RuntimeException("User not found");
 		return user;
-		
 	}
 
 	public User findById(long id){

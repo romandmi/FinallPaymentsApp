@@ -3,28 +3,42 @@ package com.jcg.examples.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jcg.examples.models.User;
+import com.jcg.examples.services.UserService;
+import com.jcg.examples.services.UserServiceImpl;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
+
 @Controller
 public class CustomController {
+
+    private UserService userService = new UserServiceImpl();
+
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcomeUser(HttpServletRequest request) {
+        User user;
         Principal principal = request.getUserPrincipal();
-        if ("Chandan".equals(principal.getName())){
+        try {
+            user = userService.findByLog(principal.getName());
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "redirect:/login";
+        }
+        if (user.getIs_admin().equals("user"))
             return "redirect:/user";
-        }
-        else{
-            return "redirect:/admin";
-        }
+        if (user.getIs_admin().equals("admin"))
+                return "redirect:/admin";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
