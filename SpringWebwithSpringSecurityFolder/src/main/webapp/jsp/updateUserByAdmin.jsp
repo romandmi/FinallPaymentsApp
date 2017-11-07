@@ -13,6 +13,10 @@
     <div class="container">
         <h1>Update a client</h1>
         <div type="div-form">
+            
+                <h3>ID = <c:out value="${user.id}"/></h3>
+                <p><input type="text" name="id" value="<c:out value="${user.id}"/>" readonly hidden/></p>
+
                 <p>Login</p>
                 <p><input class = "text-form" type="text" name="login" value="<c:out value="${user.login}"/>" /></p>
 
