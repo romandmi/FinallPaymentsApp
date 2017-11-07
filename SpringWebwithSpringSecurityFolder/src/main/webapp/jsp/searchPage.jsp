@@ -13,7 +13,7 @@
         <div type="div-form">
             <form:form name="/admin/find" method="POST">
             <input type="text-search" id="login" name="login" placeholder="Enter user's login...">
-            <br>
+            <br><br>
             <input class ="submit-search" type="submit" value="Search">
           </form:form>
         </div>

@@ -13,7 +13,7 @@
     <div class="container">
         <h1>Update a client</h1>
         <div type="div-form">
-            
+
                 <h3>ID = <c:out value="${user.id}"/></h3>
                 <p><input type="text" name="id" value="<c:out value="${user.id}"/>" readonly hidden/></p>
 
@@ -24,7 +24,8 @@
                 <p><input class = "text-form" type="text" name="password" value="<c:out value="${user.password}"/>" /></p>
 
                 <p>Role</p>
-                <p><input class = "text-form" type="text" name="is_admin" value="<c:out value="${user.is_admin}"/>" /></p>
+                <p><input type="radio" name="is_admin" value="user" checked />  user</p>
+                <p><input type="radio" name="is_admin" value="admin" />  admin</p>
 
                 <br><input class ="submit-form" type="submit" value="Submit" />
         </div>

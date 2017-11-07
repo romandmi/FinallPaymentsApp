@@ -20,7 +20,8 @@
                 <p><input class = "text-form" type="password" name="password" /></p>
 
                 <p>Role</p>
-                <p><input class = "text-form" type="text" name="is_admin" /></p>
+                <p><input type="radio" name="is_admin" value="user" checked />  user</p>
+                <p><input type="radio" name="is_admin" value="admin" />  admin</p>
 
                 <br><input class ="submit-form" type="submit" value="Submit" />
         </div>
