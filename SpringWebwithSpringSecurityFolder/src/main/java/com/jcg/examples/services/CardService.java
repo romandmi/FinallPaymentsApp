@@ -2,13 +2,11 @@ package com.jcg.examples.services;
 
 
 import com.jcg.examples.models.Card;
-import com.jcg.examples.models.Client;
 
 import java.util.List;
 
 public interface  CardService {
     List<Card> findByClientId(long id);
-
     List<Card> selectAll();
     void save(Card card);
     void update(Card card);

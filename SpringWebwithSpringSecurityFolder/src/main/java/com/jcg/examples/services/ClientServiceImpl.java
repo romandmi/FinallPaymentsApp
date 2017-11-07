@@ -1,7 +1,7 @@
 package com.jcg.examples.services;
 
+
 import com.jcg.examples.models.Client;
-import com.jcg.examples.models.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -151,8 +151,8 @@ public class ClientServiceImpl implements ClientService{
 
             try {
                 tx = sess.beginTransaction();
-                User user = (User) sess.get(User.class, id);
-                sess.delete(user);
+                Client client = (Client) sess.get(Client.class, id);
+                sess.delete(client);
                 tx.commit();
             } catch(RuntimeException e2) {
                 try {
