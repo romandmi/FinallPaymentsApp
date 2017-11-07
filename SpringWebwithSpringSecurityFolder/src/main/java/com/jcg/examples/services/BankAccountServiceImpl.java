@@ -102,4 +102,98 @@ public class BankAccountServiceImpl implements BankAccountService {
         return bankAccount;
 
     }
+
+    @Override
+    public void save(BankAccount account) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                sess.save(account);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
+
+    @Override
+    public void update(BankAccount account) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session sess = null;
+        try {
+            sess = sf.openSession();
+            Transaction tx = null;
+            try {
+                tx = sess.beginTransaction();
+                String hql = "update BankAccount set balance =:balance, is_blocked=:is_blocked where id=:id";
+                sess.createQuery(hql)
+                        .setParameter("id", account.getId())
+                        .setParameter("balance", account.getBalance())
+                        .setParameter("is_blocked", account.getIs_blocked())
+                        .executeUpdate();
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                BankAccount bankAccount = (BankAccount) sess.get(BankAccount.class, id);
+                sess.delete(bankAccount);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
 }

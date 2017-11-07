@@ -13,4 +13,10 @@ public interface BankAccountService {
     void changeStatusById(long id);
 
     BankAccount getById(long id);
+
+    void save(BankAccount account);
+
+    void update(BankAccount account);
+
+    void deleteById(Long id);
 }
