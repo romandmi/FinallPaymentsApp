@@ -73,4 +73,138 @@ public class ClientServiceImpl implements ClientService{
 
         return c_list;
     }
+
+    @Override
+    public void save(Client client) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                sess.save(client);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
+
+    @Override
+    public void update(Client client) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session sess = null;
+        try {
+            sess = sf.openSession();
+            Transaction tx = null;
+            try {
+                tx = sess.beginTransaction();
+                String hql = "update Client set first_name =:first_name, last_name=:last_name, " +
+                        "surname=:surname,user_id=:user_id where id=:id";
+                sess.createQuery(hql)
+                        .setParameter("id", client.getId()).setParameter("first_name", client.getFirst_name())
+                        .setParameter("last_name", client.getLast_name())
+                        .setParameter("surname", client.getSurname())
+                        .setParameter("user_id", client.getUser_id())
+                        .executeUpdate();
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                User user = (User) sess.get(User.class, id);
+                sess.delete(user);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
+
+    @Override
+    public Client findById(long id) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+        Client client = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                Query q = sess.createQuery("from Client where id = :id");
+                q.setParameter("id", id);
+                client = (Client)q.list().get(0);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while making query");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+
+        if(client == null) throw new RuntimeException("Client not found");
+        return client;
+
+    }
 }

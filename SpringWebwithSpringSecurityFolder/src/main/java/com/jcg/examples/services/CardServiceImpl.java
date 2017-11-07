@@ -52,4 +52,55 @@ public class CardServiceImpl implements CardService{
         if(cards == null) throw new RuntimeException("Card not found");
         return cards;
     }
+
+    @Override
+    public List<Card> selectAll() {
+        return null;
+    }
+
+    @Override
+    public void save(Card card) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                sess.save(card);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while performing transaction");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+    }
+
+    @Override
+    public void update(Card card) {
+
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
+    public Card findById(long id) {
+        return null;
+    }
 }
