@@ -9,19 +9,21 @@
 </head>
 <body>
 <jsp:include page="navigationAdminBar.jsp"></jsp:include>
-<form:form name="getNewClient" method="POST">
+<form:form name="createClient" method="POST">
     <div class="container">
-        <h1>Create a new user</h1>
+        <h1>Create a new client</h1>
         <div type="div-form">
-                <p>Login</p>
-                <p><input class = "text-form" type="text" name="login" /></p>
+                <p>First Name</p>
+                <p><input class = "text-form" type="text" name="first_name" /></p>
 
-                <p>Password</p>
-                <p><input class = "text-form" type="password" name="password" /></p>
+                <p>Last Name</p>
+                <p><input class = "text-form" type="text" name="last_name" /></p>
 
-                <p>Role</p>
-                <p><input type="radio" name="is_admin" value="user" checked />  user</p>
-                <p><input type="radio" name="is_admin" value="admin" />  admin</p>
+                <p>Surname</p>
+                <p><input class = "text-form" type="text" name="surname" /></p>
+
+                <p>UserId</p>
+                <p><input class = "text-form" type="text" name="user_id" /></p>
 
                 <br><input class ="submit-form" type="submit" value="Submit" />
         </div>
