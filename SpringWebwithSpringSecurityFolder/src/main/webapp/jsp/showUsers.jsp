@@ -8,7 +8,7 @@
   <body>
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
-    <h1>List of the users</h1>
+    <h1>List of users</h1>
     <a class="btn btn-success pull-right" href="<c:url value="/admin/create"/>" role="button">Create new</a>
 <table class="table table-striped">
 <thead>

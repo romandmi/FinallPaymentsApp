@@ -150,6 +150,21 @@ public class UserController {
         return "redirect:/admin/show_bank-accounts";
     }
 
+    @RequestMapping(value = "/admin/show_clients")
+    public ModelAndView showClients(){
+        ModelAndView m = new ModelAndView("showClients");
+        List<Client> clients = new LinkedList<Client>();
+        try {
+            clients = clientService.selectAll();
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addObject("error", e.getMessage());
+            return m;
+        }
+        m.addObject("clients",clients);
+        return m;
+    }
+
     @RequestMapping(value = "/admin/create", method = RequestMethod.GET)
     public ModelAndView createByAdmin() {
         ModelAndView m = new ModelAndView("createUserByAdmin");

@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService{
@@ -50,5 +51,26 @@ public class ClientServiceImpl implements ClientService{
 
         if(client == null) throw new RuntimeException("Client not found");
         return client;
+    }
+
+    @Override
+    public List<Client> selectAll() {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session session = null;
+        List<Client> c_list = new LinkedList<Client>();
+
+        try {
+            session = sf.openSession();
+            Query q = session.createQuery("from Client");
+            c_list = q.list();
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Error while transaction performing");
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+
+        return c_list;
     }
 }
