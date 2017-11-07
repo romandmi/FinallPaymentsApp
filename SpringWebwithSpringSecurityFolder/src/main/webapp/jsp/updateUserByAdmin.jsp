@@ -11,7 +11,7 @@
 <jsp:include page="navigationAdminBar.jsp"></jsp:include>
 <form:form name="updateClient" method="POST">
     <div class="container">
-        <h1>Update a client</h1>
+        <h1>Update a user</h1>
         <div type="div-form">
 
                 <h3>ID = <c:out value="${user.id}"/></h3>

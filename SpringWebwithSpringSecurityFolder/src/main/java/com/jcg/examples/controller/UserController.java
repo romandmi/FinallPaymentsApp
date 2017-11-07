@@ -165,6 +165,121 @@ public class UserController {
         return m;
     }
 
+    @RequestMapping(value = "/admin/create_client", method = RequestMethod.GET)
+    public ModelAndView createClient(){
+        ModelAndView m = new ModelAndView("createClientByAdmin");
+        return m;
+    }
+
+    @RequestMapping(value = "/admin/create_client", method = RequestMethod.POST)
+    public String submitCreateClient(Model m, @ModelAttribute("client") Client client) {
+        try {
+            clientService.save(client);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "createClientByAdmin";
+        }
+        return "redirect:/admin/show_clients";
+    }
+
+    @RequestMapping(value = "/admin/update_client/{id}", method = RequestMethod.GET)
+    public ModelAndView updateClient(@PathVariable("id") long id){
+        ModelAndView m = new ModelAndView("updateClientByAdmin");
+        Client client = clientService.findById(id);
+        m.addObject("client", client);
+        return m;
+    }
+
+    @RequestMapping(value = "/admin/update_client/{id}", method = RequestMethod.POST)
+    public String submitUpdateClient(Model m, @ModelAttribute("client") Client client) {
+        try {
+            clientService.update(client);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "redirect:/admin/show_clients";
+        }
+        return "redirect:/admin/show_clients";
+    }
+
+    @RequestMapping(value = "/admin/delete_client/{id}", method = RequestMethod.GET)
+    public String deleteClientById(@PathVariable("id") long id ) {
+
+        try {
+            clientService.deleteById(id);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "createUserByAdmin";
+        }
+        return "redirect:/admin/show_clients";
+    }
+
+    @RequestMapping(value = "/admin/show_cards")
+    public ModelAndView showCards(){
+        ModelAndView m = new ModelAndView("showCards");
+        List<Card> cards = new LinkedList<Card>();
+        try {
+            cards = cardService.selectAll();
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addObject("error", e.getMessage());
+            return m;
+        }
+        m.addObject("cards",cards);
+        return m;
+    }
+
+    @RequestMapping(value = "/admin/create_card", method = RequestMethod.GET)
+    public ModelAndView createCard(){
+        ModelAndView m = new ModelAndView("createCardByAdmin");
+        return m;
+    }
+
+    @RequestMapping(value = "/admin/create_card", method = RequestMethod.POST)
+    public String submitCreateCard(Model m, @ModelAttribute("card") Card card) {
+        try {
+            cardService.save(card);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "createCardByAdmin";
+        }
+        return "redirect:/admin/show_cards";
+    }
+
+    @RequestMapping(value = "/admin/update_card/{id}", method = RequestMethod.GET)
+    public ModelAndView updateCard(@PathVariable("id") long id){
+        ModelAndView m = new ModelAndView("updateCardByAdmin");
+        Card card = cardService.findById(id);
+        m.addObject("card", card);
+        return m;
+    }
+
+    @RequestMapping(value = "/admin/update_card/{id}", method = RequestMethod.POST)
+    public String submitUpdateCard(Model m, @ModelAttribute("card") Card card) {
+        try {
+            cardService.update(card);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "redirect:/admin/show_cards";
+        }
+        return "redirect:/admin/show_cards";
+    }
+
+    @RequestMapping(value = "/admin/delete_card/{id}", method = RequestMethod.GET)
+    public String deleteCardById(@PathVariable("id") long id ) {
+
+        try {
+            cardService.deleteById(id);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "redirect:/admin/show_cards";
+        }
+        return "redirect:/admin/show_cards";
+    }
+
     @RequestMapping(value = "/admin/create", method = RequestMethod.GET)
     public ModelAndView createByAdmin() {
         ModelAndView m = new ModelAndView("createUserByAdmin");

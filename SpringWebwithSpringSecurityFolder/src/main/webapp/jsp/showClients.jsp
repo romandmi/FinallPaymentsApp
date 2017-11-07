@@ -30,8 +30,8 @@
       <td><c:out value="${client.first_name}"/></td>
       <td><c:out value="${client.last_name}"/></td>
       <td><c:out value="${client.surname}"/></td>
-      <td><a class="btn btn-primary" href="<c:url value="/admin/update_client/${user.id}"/>" role="button">Update</a></td>
-      <td><a class="btn btn-danger" href="<c:url value="/admin/delete_client/${user.id}"/>" role="button">Delete</a></td>
+      <td><a class="btn btn-primary" href="<c:url value="/admin/update_client/${client.id}"/>" role="button">Update</a></td>
+      <td><a class="btn btn-danger" href="<c:url value="/admin/delete_client/${client.id}"/>" role="button">Delete</a></td>
     </tr>
   </c:forEach>
   </tbody>
