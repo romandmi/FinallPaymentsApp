@@ -10,7 +10,7 @@
 <jsp:include page="includeFile.jsp"></jsp:include>
 </head>
 <body>
-<br></br><br></br><br></br>
+<br><br><br>
 <div class="container">
 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
       <font color="red">
@@ -25,7 +25,7 @@
 		<p><input
 			type="password" class = "text-login" name="password" /> <input type="hidden"
 			name="${_csrf.parameterName}" value="${_csrf.token}" /></p>
-			<br> <input class ="submit-login" type="submit" value="Submit"> </br>
+			<br> <input class ="submit-login" type="submit" value="Submit">
 	</form>
 </div>
 </div>

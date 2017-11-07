@@ -26,7 +26,7 @@
                 <p>Role</p>
                 <p><input class = "text-form" type="text" name="is_admin" value="<c:out value="${user.is_admin}"/>" /></p>
 
-                <br><input class ="submit-form" type="submit" value="Submit" /></br>
+                <br><input class ="submit-form" type="submit" value="Submit" />
         </div>
         <div style="color: red"><c:out value="${error}"/></div>
     </div>
