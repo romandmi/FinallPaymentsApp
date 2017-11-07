@@ -150,6 +150,34 @@ public class UserController {
         return "redirect:/admin/show_bank-accounts";
     }
 
+    @RequestMapping(value = "/admin/create_acc", method = RequestMethod.GET)
+    public String createBankAccount(){
+        try {
+            BankAccount acc = new BankAccount();
+            acc.setBalance(0);
+            acc.setIs_blocked(false);
+            bankAccountService.save(acc);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "redirect:/admin/show_bank-accounts";
+        }
+        return "redirect:/admin/show_bank-accounts";
+    }
+
+
+    @RequestMapping(value = "/admin/delete_acc/{id}", method = RequestMethod.GET)
+    public String deleteBankAccountById(@PathVariable("id") long id ) {
+
+        try {
+            bankAccountService.deleteById(id);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            return "redirect:/admin/show_bank-accounts";
+        }
+        return "redirect:/admin/show_bank-accounts";
+    }
+
+
     @RequestMapping(value = "/admin/show_clients")
     public ModelAndView showClients(){
         ModelAndView m = new ModelAndView("showClients");
@@ -210,7 +238,7 @@ public class UserController {
             clientService.deleteById(id);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
-            return "createUserByAdmin";
+            return "redirect:/admin/show_clients";
         }
         return "redirect:/admin/show_clients";
     }

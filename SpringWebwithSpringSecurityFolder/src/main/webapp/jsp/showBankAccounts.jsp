@@ -9,6 +9,7 @@
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
     <h1>List of Bank Accounts</h1>
+    <a class="btn btn-success pull-right" href="<c:url value="/admin/create_acc"/>" role="button">Create new</a>
 <table class="table table-striped">
 <thead>
   <tr>
@@ -17,6 +18,7 @@
         <td>Balance</td>
         <td>Status</td>
         <td>Action</td>
+        <td></td>
    </tr>
    </thead>
    <tbody>
@@ -37,6 +39,7 @@
             href="<c:url value="/admin/show_bank-accounts/change_status/${bankAcc.id}"/>"
            role="button">Block</a></td>
       </c:if>
+      <td><a class="btn btn-danger" href="<c:url value="/admin/delete_acc/${bankAcc.id}"/>" role="button">Delete</a></td>
     </tr>
   </c:forEach>
   </tbody>
