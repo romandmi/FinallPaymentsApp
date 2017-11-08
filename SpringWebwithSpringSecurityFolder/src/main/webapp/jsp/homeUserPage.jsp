@@ -1,3 +1,7 @@
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>UTF-8"/>
+
 <html>
 <head>
 <title>Home</title>

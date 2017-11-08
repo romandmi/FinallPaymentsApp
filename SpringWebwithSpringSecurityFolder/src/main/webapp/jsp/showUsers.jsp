@@ -1,6 +1,20 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+
+<c:set var="current" value="${param.ddlLanguage}"/>
+<c:if test="${not empty current}">
+    <fmt:setLocale value = "current"/>
+</c:if>
+    <c:if test="${current == 'ru_RU'}">
+   <fmt:setLocale value="ru_RU"/>
+  </c:if>
+  <c:if test="${current == 'en_US'}">
+     <fmt:setLocale value="en_US"/>
+   </c:if>
+
 <html>
   <head><title>Users List</title>
     <jsp:include page="includeFile.jsp"></jsp:include>
@@ -8,17 +22,24 @@
   <body>
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
-    <h1>List of users</h1>
-    <a class="btn btn-success pull-right" href="<c:url value="/admin/create"/>" role="button">Create new</a>
+
+ 
+  	<fmt:bundle basename = "messages">
+    <h1><fmt:message key = "ListOfUsers" /><br/></h1>
+    <a class="btn btn-success pull-right" href="<c:url value="/admin/create"/>" role="button"><fmt:message key = "CreateBtn" /><br/></a>
+    </fmt:bundle>
 <table class="table table-striped">
 <thead>
   <tr>
-        <td>Index</td>
-        <td>ID</td>
-        <td>Login</td>
-        <td>Role</td>
-        <td></td>
-        <td></td>
+  
+
+        <fmt:bundle basename = "messages">
+         <td><fmt:message key = "Index" /><br/></td>
+         <td><fmt:message key = "ID" /><br/></td>
+         <td><fmt:message key = "Login" /><br/></td>
+         <td><fmt:message key = "Role"/><br/></td>
+     	</fmt:bundle>
+  
    </tr>
    </thead>
    <tbody>
@@ -28,8 +49,11 @@
       <td><c:out value="${user.id}"/></td>
       <td><c:out value="${user.login}"/></td>
       <td><c:out value="${user.is_admin}"/></td>
-      <td><a class="btn btn-primary" href="<c:url value="/admin/update/${user.id}"/>" role="button">Update</a></td>
-      <td><a class="btn btn-danger" href="<c:url value="/admin/delete/${user.id}"/>" role="button">Delete</a></td>
+      
+      <fmt:bundle basename = "messages">
+      <td><a class="btn btn-primary" href="<c:url value="/admin/update/${user.id}"/>" role="button"><fmt:message key = "UpdateBtn" /><br/></a></td>
+      <td><a class="btn btn-danger" href="<c:url value="/admin/delete/${user.id}"/>" role="button"><fmt:message key = "DeleteBtn" /><br/></a></td>
+      </fmt:bundle>
     </tr>
   </c:forEach>
   </tbody>
