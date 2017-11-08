@@ -21,7 +21,9 @@
 
 
 		<sec:intercept-url pattern="/login" access="permitAll" />
-		
+		<sec:intercept-url pattern="/registration" access="permitAll" />
+
+
 		<sec:intercept-url pattern="/user" access="hasAuthority('ROLE_USER')" />
 		<sec:intercept-url pattern="/admin" access="hasAuthority('ROLE_ADMIN')" />
 		

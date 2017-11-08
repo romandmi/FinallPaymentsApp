@@ -76,32 +76,39 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public void save(Client client) {
-        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        {
 
-        Session sess = null;
+//        Client client = null;
+//        //TODO
+//        return client;
 
-        try {
+            SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
-            sess = sf.openSession();
-            Transaction tx = null;
+            Session sess = null;
 
             try {
-                tx = sess.beginTransaction();
-                sess.save(client);
-                tx.commit();
-            } catch(RuntimeException e2) {
-                try {
-                    if(tx != null) tx.rollback();
-                } catch (Exception e3) {
-                    throw new RuntimeException("Rollback error");
-                }
-                throw new RuntimeException("Error while performing transaction");
-            }
 
-        } catch (RuntimeException e1) {
-            throw new RuntimeException(e1.getMessage());
-        } finally {
-            if(sess != null) sess.close();
+                sess = sf.openSession();
+                Transaction tx = null;
+
+                try {
+                    tx = sess.beginTransaction();
+                    sess.save(client);
+                    tx.commit();
+                } catch (RuntimeException e2) {
+                    try {
+                        if (tx != null) tx.rollback();
+                    } catch (Exception e3) {
+                        throw new RuntimeException("Rollback error");
+                    }
+                    throw new RuntimeException("Error while performing transaction");
+                }
+
+            } catch (RuntimeException e1) {
+                throw new RuntimeException(e1.getMessage());
+            } finally {
+                if (sess != null) sess.close();
+            }
         }
     }
 

@@ -30,5 +30,10 @@
 		</font>
 	</c:if></p>
 </div>
+
+<ul>
+<li><a href="login/registration">Registration</a></li>
+</ul>
+
 </body>
 </html>

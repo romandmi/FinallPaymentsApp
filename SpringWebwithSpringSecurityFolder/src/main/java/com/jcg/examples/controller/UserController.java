@@ -412,5 +412,31 @@ public class UserController {
         } catch(Exception e){}
         return "redirect:/admin/delete_users";
     }
+
+
+    @RequestMapping(value = "login/registration", method = RequestMethod.POST)
+    public String registrationPost(Model m, @ModelAttribute("user") User user, @ModelAttribute("client") Client client) {
+        try {
+            user.setIs_admin("user");
+            userService.save(user);
+            client.setUser_id((int) (long) user.getId()); // так делать не надо!!!
+            clientService.save(client);
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "/registration";
+        }
+        return "redirect:/login";
+
+     }
+
+    @RequestMapping(value = "login/registration", method = RequestMethod.GET)
+    public ModelAndView registrationGet() {
+        ModelAndView m = new ModelAndView("registration");
+
+        return m;
+
+    }
+
 }
 
