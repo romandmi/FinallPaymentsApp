@@ -32,7 +32,7 @@
 </div>
 
 <ul>
-<li><a href="login/registration">Registration</a></li>
+<li><a href="/login/registration">Registration</a></li>
 </ul>
 
 </body>

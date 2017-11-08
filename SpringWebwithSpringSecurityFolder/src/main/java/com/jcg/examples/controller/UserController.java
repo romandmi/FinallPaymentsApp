@@ -414,7 +414,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "login/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/registration", method = RequestMethod.POST)
     public String registrationPost(Model m, @ModelAttribute("user") User user, @ModelAttribute("client") Client client) {
         try {
             user.setIs_admin("user");
@@ -430,7 +430,7 @@ public class UserController {
 
      }
 
-    @RequestMapping(value = "login/registration", method = RequestMethod.GET)
+    @RequestMapping(value = "/login/registration", method = RequestMethod.GET)
     public ModelAndView registrationGet() {
         ModelAndView m = new ModelAndView("registration");
 
