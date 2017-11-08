@@ -22,21 +22,11 @@ import java.security.Principal;
 @Controller
 public class CustomController {
 
-    private UserService userService = new UserServiceImpl();
-
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcomeUser(HttpServletRequest request) {
-        User user;
-        Principal principal = request.getUserPrincipal();
-        try {
-            user = userService.findByLog(principal.getName());
-        } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
-            return "redirect:/login";
-        }
-        if (user.getIs_admin().equals("user"))
+        if (request.isUserInRole("ROLE_USER"))
             return "redirect:/user";
-        if (user.getIs_admin().equals("admin"))
+        if (request.isUserInRole("ROLE_ADMIN"))
                 return "redirect:/admin";
         return "redirect:/login";
     }

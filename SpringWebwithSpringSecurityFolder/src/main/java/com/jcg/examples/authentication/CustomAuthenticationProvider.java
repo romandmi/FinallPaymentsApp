@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 
@@ -26,24 +27,21 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String userName = authentication.getName();
         String password = authentication.getCredentials().toString();
         User user;
-
-        if ((user = authorizedUser(userName)) != null) {
+        if ((user = authorizedUser(userName, password)) != null) {
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            if (user.getIs_admin().equals("user")) {
-                grantedAuths.add(() -> "ROLE_USER");
-            }
-            if (user.getIs_admin().equals("admin")) {
-                grantedAuths.add(() -> "ROLE_ADMIN");
-            }
-            Authentication auth = new UsernamePasswordAuthenticationToken(userName, password, grantedAuths);
-            System.out.println(auth.getAuthorities().toString());
-            return auth;
+            GrantedAuthority grantedAuthority;
+            if (user.getIs_admin().equals("user"))
+                grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+            else
+                grantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
+            grantedAuths.add(grantedAuthority);
+            return new UsernamePasswordAuthenticationToken(userName, password, grantedAuths);
         } else {
             throw new AuthenticationCredentialsNotFoundException("Invalid Credentials!");
         }
     }
 
-    private User authorizedUser(String userName) {
+    private User authorizedUser(String userName, String password) {
         User user;
         try {
             user = userService.findByLog(userName);
@@ -51,7 +49,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             System.err.println(e.getMessage());
             return null;
         }
-        return user;
+        if (user.getPassword().equals(password))
+            return user;
+        else
+            return null;
     }
 
     @Override
