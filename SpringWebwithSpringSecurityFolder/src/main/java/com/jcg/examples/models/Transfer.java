@@ -31,7 +31,7 @@ public class Transfer {
 
     /**
      * This method return the value of field id
-     * @return Long id value
+     * @return id value
      */
 	public Long getId() {
 		return id;
@@ -39,7 +39,7 @@ public class Transfer {
 
     /**
      * This method set the value of field id
-     * @param id Long id value
+     * @param id id value
      */
 	public void setId(Long id) {
 		this.id = id;
@@ -47,7 +47,7 @@ public class Transfer {
 
     /**
      * This method return the value of field tr_date, date of the transaction
-     * @return Date tr_date value
+     * @return date value
      */
 	public Date getTr_date() {
 		return tr_date;
@@ -55,7 +55,7 @@ public class Transfer {
 
     /**
      * This method set the value of field tr_date, date of the transaction
-     * @param tr_date Date value
+     * @param tr_date date value
      */
 	public void setTr_date(Date tr_date) {
 		this.tr_date = tr_date;
@@ -63,7 +63,7 @@ public class Transfer {
 
     /**
      * This method return the value of field tr_sum, sum of the transaction
-     * @return Integer sum of the transaction
+     * @return sum of the transaction
      */
 	public Integer getTr_sum() {
 		return tr_sum;
@@ -71,7 +71,7 @@ public class Transfer {
 
     /**
      * This method set the value of field tr_sum, sum of the transaction
-     * @param tr_sum Integer sum of the transaction
+     * @param tr_sum sum of the transaction
      */
 	public void setTr_sum(Integer tr_sum) {
 		this.tr_sum = tr_sum;
@@ -79,7 +79,7 @@ public class Transfer {
 
     /**
      * This method return the value of field tr_type, type of the transaction
-     * @return Integer type of the transaction
+     * @return type of the transaction
      */
 	public Integer getTr_type() {
 		return tr_type;
@@ -87,7 +87,7 @@ public class Transfer {
 
     /**
      * This method set the value of field tr_type, type of the transaction
-     * @param tr_type Integer type of the transaction
+     * @param tr_type type of the transaction
      */
 	public void setTr_type(Integer tr_type) {
 		this.tr_type = tr_type;
@@ -95,7 +95,7 @@ public class Transfer {
 
     /**
      * This method return the value of field card_id, id of card
-     * @return Integer id of the card
+     * @return id of the card
      */
 	public Integer getCard_id() {
 		return card_id;
@@ -103,7 +103,7 @@ public class Transfer {
 
     /**
      * This method set the value of field card_id, id of card
-     * @param card_id Integer id of the card
+     * @param card_id id of the card
      */
 	public void setCard_id(Integer card_id) {
 		this.card_id = card_id;
@@ -111,7 +111,7 @@ public class Transfer {
 
     /**
      * This method return the value of field client_id, id of client
-     * @return Integer id of the client
+     * @return id of the client
      */
 	public Integer getClient_id() {
 		return client_id;
@@ -119,7 +119,7 @@ public class Transfer {
 
     /**
      * This method set the value of field client_id, id of client
-     * @param client_id Integer id of client
+     * @param client_id id of client
      */
 	public void setClient_id(Integer client_id) {
 		this.client_id = client_id;

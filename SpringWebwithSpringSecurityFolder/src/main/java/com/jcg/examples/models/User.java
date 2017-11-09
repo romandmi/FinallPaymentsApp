@@ -25,7 +25,7 @@ public class User {
 
     /**
      * This method return the value of field id
-     * @return Long id value
+     * @return id value
      */
 	public Long getId() {
 		return id;
@@ -33,7 +33,7 @@ public class User {
 
     /**
      * This method set the value of field id
-     * @param id Long id value
+     * @param id id value
      */
 	public void setId(Long id) {
 		this.id = id;
@@ -41,7 +41,7 @@ public class User {
 
     /**
      * This method return the value of field is_admin
-     * @return String is_admin value
+     * @return is_admin value
      */
 	public String getIs_admin() {
 		return is_admin;
@@ -49,7 +49,7 @@ public class User {
 
     /**
      * This method set the value of field is_admin
-     * @param isAdmin String value, this is the name of the user's role in the system
+     * @param isAdmin the name of the user's role in the system
      */
 	public void setIs_admin(String isAdmin) {
 		this.is_admin = isAdmin;
@@ -57,7 +57,7 @@ public class User {
 
     /**
      * This method return the value of field login
-     * @return String login value
+     * @return login value
      */
 	public String getLogin() {
 		return login;
@@ -65,7 +65,7 @@ public class User {
 
     /**
      * This method set the value of field login
-     * @param login String value
+     * @param login value
      */
 	public void setLogin(String login) {
 		this.login = login;
@@ -73,7 +73,7 @@ public class User {
 
     /**
      * This method return the value of field password
-     * @return String password value
+     * @return password value
      */
 	public String getPassword() {
 		return password;

@@ -26,7 +26,7 @@ public class Client {
 
     /**
      * This method return the value of field id
-     * @return Long id value
+     * @return id value
      */
     public Long getId() {
 		return id;
@@ -34,7 +34,7 @@ public class Client {
 
     /**
      * This method set the value of field id
-     * @param id Long id value
+     * @param id id value
      */
 	public void setId(Long id) {
 		this.id = id;
@@ -42,7 +42,7 @@ public class Client {
 
     /**
      * This method return the value of field first_name
-     * @return String first name value
+     * @return first name value
      */
 	public String getFirst_name() {
 		return first_name;
@@ -50,7 +50,7 @@ public class Client {
 
     /**
      * This method set the value of field first_name
-     * @param first_name String first name value
+     * @param first_name first name value
      */
 	public void setFirst_name(String first_name) {
 		this.first_name = first_name;
@@ -58,7 +58,7 @@ public class Client {
 
     /**
      * This method return the value of field last_name
-     * @return String last name value
+     * @return last name value
      */
 	public String getLast_name() {
 		return last_name;
@@ -66,7 +66,7 @@ public class Client {
 
     /**
      * This method set the value of field last_name
-     * @param last_name String last name value
+     * @param last_name last name value
      */
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
@@ -74,7 +74,7 @@ public class Client {
 
     /**
      * This method return the value of field surname
-     * @return String surname value
+     * @return surname value
      */
 	public String getSurname() {
 		return surname;
@@ -82,7 +82,7 @@ public class Client {
 
     /**
      * This method set the value of field surname
-     * @param surname String surname value
+     * @param surname surname value
      */
 	public void setSurname(String surname) {
 		this.surname = surname;
@@ -90,7 +90,7 @@ public class Client {
 
     /**
      * This method return the value of field user_id, id of the user
-     * @return Integer id of the user
+     * @return id of the user
      */
 	public Integer getUser_id() {
 		return user_id;
@@ -98,7 +98,7 @@ public class Client {
 
     /**
      * This method set the value of field user_id, id of the user
-     * @param user_id Integer id of the user
+     * @param user_id id of the user
      */
 	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
