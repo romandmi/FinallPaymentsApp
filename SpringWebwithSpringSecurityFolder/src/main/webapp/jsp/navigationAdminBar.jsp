@@ -42,9 +42,6 @@
              </li>
             <li style ="float:right;"><a href="/SpringWebwithSpringSecurity/logout"><fmt:message key = "Logout"/></a></li>
             <li style="float:right;"><a href="#"><fmt:message key = "Hello"/>, <%= request.getUserPrincipal().getName() %></a></li>
-            
-            
-            
           </ul>
         </div>
   </div>
