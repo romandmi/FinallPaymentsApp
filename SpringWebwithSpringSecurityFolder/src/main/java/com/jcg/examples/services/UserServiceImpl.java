@@ -1,5 +1,6 @@
 package com.jcg.examples.services;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,12 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService{
-	
+	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 	//private SessionFactory sf;
 	
 	public User findByLog(String log){
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
-		
 		Session sess = null;
 		User user = null;
 		

@@ -36,9 +36,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
                 grantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
             grantedAuths.add(grantedAuthority);
             return new UsernamePasswordAuthenticationToken(userName, password, grantedAuths);
-        } else {
+        } else
             throw new AuthenticationCredentialsNotFoundException("Invalid Credentials!");
-        }
     }
 
     private User authorizedUser(String userName, String password) {

@@ -22,11 +22,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
+import org.apache.log4j.Logger;
 
 @Controller
 public class UserController {
 
+    private static final Logger logger = Logger.getLogger(UserController.class);
     private UserService userService = new UserServiceImpl();
     private TransactionService transactionService = new TransactionServiceImpl();
     private BankAccountService bankAccountService = new BankAccountServiceImpl();
