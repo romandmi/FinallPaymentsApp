@@ -1,14 +1,17 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+
 <html>
-  <head><title>Clent List</title>
+  <head><title>Client List</title>
     <jsp:include page="includeFile.jsp"></jsp:include>
   </head>
   <body>
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
-    <h1>List of clients</h1>
+    <h1><fmt:message key = "ListOfClients"/></h1>
     <a class="btn btn-success pull-right" href="<c:url value="/admin/create_client"/>" role="button">Create new</a>
 <table class="table table-striped">
 <thead>
