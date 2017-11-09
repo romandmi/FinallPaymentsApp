@@ -12,4 +12,6 @@ public interface  CardService {
     void update(Card card);
     void deleteById(Long id);
     Card findById(long id);
+
+    Card findByNumber(String card_number);
 }

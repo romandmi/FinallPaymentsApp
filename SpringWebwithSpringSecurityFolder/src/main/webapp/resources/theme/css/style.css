@@ -7,7 +7,7 @@ input[type=text-search], [class=text-login],[class=text-form]{
     width: 80%;
 }
 
-input[class=submit-search], [class =submit-login], [class=submit-form] {
+input[class=submit-search], [class =submit-login], [class=submit-form] , [class=btn-registration]{
     background-color: #191919;
     color: white;
     padding: 14px 20px;

@@ -18,9 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
 
-
+/**
+ *
+ * Controller for user login and logout. Also included solution for redirecting to the
+ * right URL using information about the role in the system.
+ *
+ */
 @Controller
 public class CustomController {
+
+    /**
+     * This is the main method which helps to select path according to role
+     * @param request get request from /welcome page
+     * @return String redirect to home page for admin/user
+     */
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcomeUser(HttpServletRequest request) {
@@ -31,11 +42,22 @@ public class CustomController {
         return "redirect:/login";
     }
 
+    /**
+     * This is the method which helps to see login page
+     * @param model ModelMap uses when building model data for use with UI tools
+     * @return String login page name
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model) {
         return "login";
     }
 
+    /**
+     * This is the method which helps to logout from the system
+     * @param request HttpServletRequest the request being served
+     * @param response HttpServletResponse the response being generated
+     * @return redirect to login page
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
