@@ -29,11 +29,8 @@
 			Your login attempt was not successful due to <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
 		</font>
 	</c:if></p>
+
+    <a  style="color: #ffffff;text-decoration:none;" role="button" class="btn-registration" href="/SpringWebwithSpringSecurity/login/registration">Registration</a>
 </div>
-
-<ul>
-<li><a href="/login/registration">Registration</a></li>
-</ul>
-
 </body>
 </html>
