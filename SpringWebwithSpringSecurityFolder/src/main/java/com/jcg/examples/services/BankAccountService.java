@@ -6,7 +6,6 @@ import com.jcg.examples.models.BankAccount;
 
 import java.util.List;
 
-
 public interface BankAccountService {
     List<BankAccount> selectAll();
 

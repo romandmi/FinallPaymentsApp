@@ -65,7 +65,7 @@ public class User {
 
     /**
      * This method set the value of field login
-     * @param login value
+     * @param login login value
      */
 	public void setLogin(String login) {
 		this.login = login;
@@ -81,7 +81,7 @@ public class User {
 
     /**
      * This method set the value of field password
-     * @param password String value
+     * @param password password value
      */
 	public void setPassword(String password) {
 		this.password = password;
