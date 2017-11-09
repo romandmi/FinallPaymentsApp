@@ -12,15 +12,15 @@
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
     <h1><fmt:message key = "ListOfClients"/></h1>
-    <a class="btn btn-success pull-right" href="<c:url value="/admin/create_client"/>" role="button">Create new</a>
+    <a class="btn btn-success pull-right" href="<c:url value="/admin/create_client"/>" role="button"><fmt:message key = "CreateBtn"/></a>
 <table class="table table-striped">
 <thead>
   <tr>
-        <td>Index</td>
-        <td>ID</td>
-        <td>First Name</td>
-        <td>Last Name</td>
-        <td>Surname Name</td>
+        <td><fmt:message key = "Index"/></td>
+        <td><fmt:message key = "ID"/></td>
+        <td><fmt:message key = "FirstName"/></td>
+        <td><fmt:message key = "LastName"/></td>
+        <td><fmt:message key = "Surname"/></td>
         <td></td>
         <td></td>
    </tr>
@@ -33,8 +33,8 @@
       <td><c:out value="${client.first_name}"/></td>
       <td><c:out value="${client.last_name}"/></td>
       <td><c:out value="${client.surname}"/></td>
-      <td><a class="btn btn-primary" href="<c:url value="/admin/update_client/${client.id}"/>" role="button">Update</a></td>
-      <td><a class="btn btn-danger" href="<c:url value="/admin/delete_client/${client.id}"/>" role="button">Delete</a></td>
+      <td><a class="btn btn-primary" href="<c:url value="/admin/update_client/${client.id}"/>" role="button"><fmt:message key = "UpdateBtn"/></a></td>
+      <td><a class="btn btn-danger" href="<c:url value="/admin/delete_client/${client.id}"/>" role="button"><fmt:message key = "DeleteBtn"/></a></td>
     </tr>
   </c:forEach>
   </tbody>
