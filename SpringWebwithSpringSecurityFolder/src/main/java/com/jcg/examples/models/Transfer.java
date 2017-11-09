@@ -63,7 +63,7 @@ public class Transfer {
 
     /**
      * This method return the value of field tr_sum, sum of the transaction
-     * @return Integer tr_sum, sum of the transaction
+     * @return Integer sum of the transaction
      */
 	public Integer getTr_sum() {
 		return tr_sum;
@@ -71,7 +71,7 @@ public class Transfer {
 
     /**
      * This method set the value of field tr_sum, sum of the transaction
-     * @param tr_sum Integer tr_sum, sum of the transaction
+     * @param tr_sum Integer sum of the transaction
      */
 	public void setTr_sum(Integer tr_sum) {
 		this.tr_sum = tr_sum;
@@ -79,7 +79,7 @@ public class Transfer {
 
     /**
      * This method return the value of field tr_type, type of the transaction
-     * @return Integer tr_type, type of the transaction
+     * @return Integer type of the transaction
      */
 	public Integer getTr_type() {
 		return tr_type;
@@ -87,7 +87,7 @@ public class Transfer {
 
     /**
      * This method set the value of field tr_type, type of the transaction
-     * @param tr_type Integer tr_type, type of the transaction
+     * @param tr_type Integer type of the transaction
      */
 	public void setTr_type(Integer tr_type) {
 		this.tr_type = tr_type;
@@ -95,7 +95,7 @@ public class Transfer {
 
     /**
      * This method return the value of field card_id, id of card
-     * @return Integer card_id, id of the card
+     * @return Integer id of the card
      */
 	public Integer getCard_id() {
 		return card_id;
@@ -103,7 +103,7 @@ public class Transfer {
 
     /**
      * This method set the value of field card_id, id of card
-     * @param card_id Integer card_id, id of the card
+     * @param card_id Integer id of the card
      */
 	public void setCard_id(Integer card_id) {
 		this.card_id = card_id;
@@ -111,7 +111,7 @@ public class Transfer {
 
     /**
      * This method return the value of field client_id, id of client
-     * @return Integer client_id, id of the client
+     * @return Integer id of the client
      */
 	public Integer getClient_id() {
 		return client_id;
@@ -119,7 +119,7 @@ public class Transfer {
 
     /**
      * This method set the value of field client_id, id of client
-     * @param client_id Integer client_id, id of client
+     * @param client_id Integer id of client
      */
 	public void setClient_id(Integer client_id) {
 		this.client_id = client_id;
