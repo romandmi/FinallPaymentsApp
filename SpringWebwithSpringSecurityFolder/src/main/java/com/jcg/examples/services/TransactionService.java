@@ -8,4 +8,5 @@ public interface TransactionService {
 	List<Transfer> selectAll();
 	List<Transfer> selectAll(int id);
 
+    void save(Transfer tr);
 }

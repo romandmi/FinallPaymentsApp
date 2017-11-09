@@ -3,6 +3,7 @@ package com.jcg.examples.services;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.jcg.examples.models.Transfer;
 
@@ -57,6 +58,37 @@ public class TransactionServiceImpl implements TransactionService{
 			}
 		}
 		return tr_list;
+	}
+
+	@Override
+	public void save(Transfer tr) {
+		SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+		Session sess = null;
+
+		try {
+
+			sess = sf.openSession();
+			Transaction tx = null;
+
+			try {
+				tx = sess.beginTransaction();
+				sess.save(tr);
+				tx.commit();
+			} catch(RuntimeException e2) {
+				try {
+					if(tx != null) tx.rollback();
+				} catch (Exception e3) {
+					throw new RuntimeException("Rollback error");
+				}
+				throw new RuntimeException("Error while performing transaction");
+			}
+
+		} catch (RuntimeException e1) {
+			throw new RuntimeException(e1.getMessage());
+		} finally {
+			if(sess != null) sess.close();
+		}
 	}
 
 }

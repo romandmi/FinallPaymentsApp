@@ -203,7 +203,44 @@ public class CardServiceImpl implements CardService{
             if(sess != null) sess.close();
         }
 
-        if(card == null) throw new RuntimeException("User not found");
+        if(card == null) throw new RuntimeException("Card not found");
+        return card;
+    }
+
+    @Override
+    public Card findByNumber(String card_number) {
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+
+        Session sess = null;
+        Card card = null;
+
+        try {
+
+            sess = sf.openSession();
+            Transaction tx = null;
+
+            try {
+                tx = sess.beginTransaction();
+                Query q = sess.createQuery("from Card where card_number = :card_number");
+                q.setParameter("card_number", card_number);
+                card = (Card)q.list().get(0);
+                tx.commit();
+            } catch(RuntimeException e2) {
+                try {
+                    if(tx != null) tx.rollback();
+                } catch (Exception e3) {
+                    throw new RuntimeException("Rollback error");
+                }
+                throw new RuntimeException("Error while making query");
+            }
+
+        } catch (RuntimeException e1) {
+            throw new RuntimeException(e1.getMessage());
+        } finally {
+            if(sess != null) sess.close();
+        }
+
+        if(card == null) throw new RuntimeException("Card not found");
         return card;
     }
 }

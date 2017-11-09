@@ -15,7 +15,11 @@ import com.jcg.examples.forms.UserRow;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,6 +69,78 @@ public class UserController {
         return m;
     }
 
+    @RequestMapping(value = "/user/make_payment", method = RequestMethod.GET)
+    public ModelAndView makePayment(){
+        ModelAndView m = new ModelAndView("makePayment");
+        return m;
+    }
+
+    @RequestMapping(value = "/user/make_payment", method = RequestMethod.POST)
+    public String submitMakePayment(HttpServletRequest request,Model m, @ModelAttribute("card") Card card,
+                                    @ModelAttribute("transfer") Transfer tr) {
+        try {
+
+            String login = request.getUserPrincipal().getName();
+            User user = userService.findByLog(login);
+            Client c = clientService.findByUserId(user.getId());
+            Card cc = cardService.findByNumber(card.getCard_number());
+            BankAccount bankAcc = bankAccountService.getById(cc.getAccount_id());
+
+            if (bankAcc.getIs_blocked()==false) {
+                bankAcc.setBalance(bankAcc.getBalance() - tr.getTr_sum());
+                bankAccountService.update(bankAcc);
+
+                tr.setCard_id((int) (long) cc.getId());
+                tr.setTr_type(0);
+                tr.setTr_date(java.sql.Date.valueOf(LocalDate.now()));
+                tr.setClient_id((int) (long) c.getId());
+                transactionService.save(tr);
+            }
+
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "user/make_payment";
+        }
+        return "redirect:/user";
+    }
+
+    @RequestMapping(value = "/user/add_funds", method = RequestMethod.GET)
+    public ModelAndView addFunds(){
+        ModelAndView m = new ModelAndView("addFunds");
+        return m;
+    }
+
+    @RequestMapping(value = "/user/add_funds", method = RequestMethod.POST)
+    public String submitAddFunds(HttpServletRequest request,Model m, @ModelAttribute("card") Card card,
+                                    @ModelAttribute("transfer") Transfer tr) {
+        try {
+
+            String login = request.getUserPrincipal().getName();
+            User user = userService.findByLog(login);
+            Client c = clientService.findByUserId(user.getId());
+            Card cc = cardService.findByNumber(card.getCard_number());
+            BankAccount bankAcc = bankAccountService.getById(cc.getAccount_id());
+
+            if (bankAcc.getIs_blocked()==false) {
+                bankAcc.setBalance(bankAcc.getBalance() + tr.getTr_sum());
+                bankAccountService.update(bankAcc);
+
+                tr.setCard_id((int) (long) cc.getId());
+                tr.setTr_type(1);
+                tr.setTr_date(java.sql.Date.valueOf(LocalDate.now()));
+                tr.setClient_id((int) (long) c.getId());
+                transactionService.save(tr);
+            }
+
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            m.addAttribute("error", e.getMessage());
+            return "user/add_funds";
+        }
+        return "redirect:/user";
+    }
+
     @RequestMapping(value = "/admin/show_transactions", method = RequestMethod.GET)
     public ModelAndView showAllTransactions() {
         List<Transfer> tr = transactionService.selectAll();
@@ -93,11 +169,10 @@ public class UserController {
         ModelAndView m = new ModelAndView("showUserBankAccounts");
         List<Card> cards = new LinkedList<Card>();
         List<BankAccount> bankAccs = new LinkedList<BankAccount>();
-        //User user = (User)request.getSession().getAttribute("currentUser");
+        String login = request.getUserPrincipal().getName();
         Client client = null;
         try {
-            //TODO we should get user from current session
-            User user = userService.findById(4);
+            User user = userService.findByLog(login);
             client = clientService.findByUserId(user.getId());
             cards = cardService.findByClientId(client.getId());
             for (Card c: cards) {
@@ -126,7 +201,6 @@ public class UserController {
     @RequestMapping(value = "/admin/show_bank-accounts")
     public ModelAndView changeBankAccountStatus(){
         ModelAndView m = new ModelAndView("showBankAccounts");
-        //FIXME
         List<BankAccount> bankAccs = new LinkedList<BankAccount>();
         try {
             bankAccs = bankAccountService.selectAll();
@@ -424,7 +498,7 @@ public class UserController {
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
             m.addAttribute("error", e.getMessage());
-            return "/registration";
+            return "/login/registration";
         }
         return "redirect:/login";
 
@@ -433,9 +507,7 @@ public class UserController {
     @RequestMapping(value = "/login/registration", method = RequestMethod.GET)
     public ModelAndView registrationGet() {
         ModelAndView m = new ModelAndView("registration");
-
         return m;
-
     }
 
 }
