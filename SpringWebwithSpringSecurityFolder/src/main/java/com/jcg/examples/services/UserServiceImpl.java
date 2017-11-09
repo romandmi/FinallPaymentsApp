@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService{
+
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 	//private SessionFactory sf;
 	

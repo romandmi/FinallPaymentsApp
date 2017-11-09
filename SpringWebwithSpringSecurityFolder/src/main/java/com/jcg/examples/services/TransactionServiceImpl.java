@@ -1,5 +1,6 @@
 package com.jcg.examples.services;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransactionServiceImpl implements TransactionService{
+
+	private static final Logger logger = Logger.getLogger(TransactionServiceImpl.class);
 
 	@Override
 	public List<Transfer> selectAll() {

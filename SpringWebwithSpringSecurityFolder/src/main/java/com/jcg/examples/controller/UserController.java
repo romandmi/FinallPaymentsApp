@@ -62,7 +62,7 @@ public class UserController {
         try {
             tr = transactionService.selectAll(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -99,7 +99,7 @@ public class UserController {
             }
 
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "user/make_payment";
         }
@@ -135,7 +135,7 @@ public class UserController {
             }
 
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "user/add_funds";
         }
@@ -157,7 +157,7 @@ public class UserController {
         try {
             users = userService.selectAll();
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -180,7 +180,7 @@ public class UserController {
                 bankAccs.add(bankAccountService.getById(c.getAccount_id()));
             }
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -193,7 +193,7 @@ public class UserController {
         try {
             bankAccountService.changeStatusById(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             return "redirect:/user/show_user_bank-accounts";
         }
         return "redirect:/user/show_user_bank-accounts";
@@ -206,7 +206,7 @@ public class UserController {
         try {
             bankAccs = bankAccountService.selectAll();
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -219,7 +219,7 @@ public class UserController {
         try {
             bankAccountService.changeStatusById(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             return "redirect:/admin/show_bank-accounts";
         }
         return "redirect:/admin/show_bank-accounts";
@@ -233,7 +233,7 @@ public class UserController {
             acc.setIs_blocked(false);
             bankAccountService.save(acc);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             return "redirect:/admin/show_bank-accounts";
         }
         return "redirect:/admin/show_bank-accounts";
@@ -246,7 +246,7 @@ public class UserController {
         try {
             bankAccountService.deleteById(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             return "redirect:/admin/show_bank-accounts";
         }
         return "redirect:/admin/show_bank-accounts";
@@ -260,7 +260,7 @@ public class UserController {
         try {
             clients = clientService.selectAll();
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -279,7 +279,7 @@ public class UserController {
         try {
             clientService.save(client);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "createClientByAdmin";
         }
@@ -299,7 +299,7 @@ public class UserController {
         try {
             clientService.update(client);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "redirect:/admin/show_clients";
         }
@@ -308,11 +308,10 @@ public class UserController {
 
     @RequestMapping(value = "/admin/delete_client/{id}", method = RequestMethod.GET)
     public String deleteClientById(@PathVariable("id") long id ) {
-
         try {
             clientService.deleteById(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             return "redirect:/admin/show_clients";
         }
         return "redirect:/admin/show_clients";
@@ -325,7 +324,7 @@ public class UserController {
         try {
             cards = cardService.selectAll();
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -344,7 +343,7 @@ public class UserController {
         try {
             cardService.save(card);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "createCardByAdmin";
         }
@@ -364,7 +363,7 @@ public class UserController {
         try {
             cardService.update(card);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "redirect:/admin/show_cards";
         }
@@ -377,7 +376,7 @@ public class UserController {
         try {
             cardService.deleteById(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             return "redirect:/admin/show_cards";
         }
         return "redirect:/admin/show_cards";
@@ -394,7 +393,7 @@ public class UserController {
         try {
             userService.save(user);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "createUserByAdmin";
         }
@@ -414,7 +413,7 @@ public class UserController {
         try {
             userService.update(user);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             m.addAttribute("user", user);
             return "updateUserByAdmin";
@@ -435,7 +434,7 @@ public class UserController {
         try {
             user = userService.findByLog(log);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addObject("error", e.getMessage());
             return m;
         }
@@ -445,11 +444,10 @@ public class UserController {
 
     @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.GET)
     public String deleteById(@PathVariable("id") long id ) {
-
         try {
             userService.deleteById(id);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             //m.addAttribute("error", e.getMessage()); ///////////////////////////////////////////////????????
             return "createUserByAdmin";
         }
@@ -484,7 +482,9 @@ public class UserController {
             for (int i = 0; i < id.size(); i++) {
                 userService.deleteById(id.get(i));
             }
-        } catch(Exception e){}
+        } catch(Exception e){
+            logger.error(e.getMessage());
+        }
         return "redirect:/admin/delete_users";
     }
 
@@ -497,7 +497,7 @@ public class UserController {
             client.setUser_id((int) (long) user.getId()); // так делать не надо!!!
             clientService.save(client);
         } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             m.addAttribute("error", e.getMessage());
             return "/login/registration";
         }

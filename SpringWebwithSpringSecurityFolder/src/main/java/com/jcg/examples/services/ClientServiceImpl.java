@@ -2,6 +2,7 @@ package com.jcg.examples.services;
 
 
 import com.jcg.examples.models.Client;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService{
+
+    private static final Logger logger = Logger.getLogger(ClientServiceImpl.class);
+
     @Override
     public Client findByUserId(long id) {
         SessionFactory sf = new Configuration().configure().buildSessionFactory();

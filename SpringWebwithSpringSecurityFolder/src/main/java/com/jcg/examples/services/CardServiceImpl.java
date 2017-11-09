@@ -1,6 +1,7 @@
 package com.jcg.examples.services;
 
 import com.jcg.examples.models.Card;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CardServiceImpl implements CardService{
+
+    private static final Logger logger = Logger.getLogger(CardServiceImpl.class);
 
     @Override
     public List<Card> findByClientId(long id) {
