@@ -41,18 +41,24 @@ public class CardServiceImpl implements CardService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction", new RuntimeException("Error while making query"));
                 throw new RuntimeException("Error while making query");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
         }
 
-        if(cards == null) throw new RuntimeException("Card not found");
+        if(cards == null) {
+            logger.error("Exception in findByClientId", new RuntimeException("Card not found"));
+            throw new RuntimeException("Card not found");
+        }
         return cards;
     }
 
@@ -67,6 +73,8 @@ public class CardServiceImpl implements CardService{
             Query q = session.createQuery("from Card");
             cards = q.list();
         } catch (RuntimeException e) {
+            logger.error("Exception in selectAll",
+                    new RuntimeException("Error while transaction performing"));
             throw new RuntimeException("Error while transaction performing");
         } finally {
             if(session != null) {
@@ -96,12 +104,16 @@ public class CardServiceImpl implements CardService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in save",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -130,11 +142,15 @@ public class CardServiceImpl implements CardService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in update",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -161,12 +177,16 @@ public class CardServiceImpl implements CardService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in deleteById",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -195,18 +215,24 @@ public class CardServiceImpl implements CardService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction", new RuntimeException("Error while making query"));
                 throw new RuntimeException("Error while making query");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
         }
 
-        if(card == null) throw new RuntimeException("Card not found");
+        if(card == null) {
+            logger.error("Exception in findById", new RuntimeException("Card not found"));
+            throw new RuntimeException("Card not found");
+        }
         return card;
     }
 
@@ -232,18 +258,24 @@ public class CardServiceImpl implements CardService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction", new RuntimeException("Error while making query"));
                 throw new RuntimeException("Error while making query");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
         }
 
-        if(card == null) throw new RuntimeException("Card not found");
+        if(card == null) {
+            logger.error("Exception in findByNumber", new RuntimeException("Card not found"));
+            throw new RuntimeException("Card not found");
+        }
         return card;
     }
 }

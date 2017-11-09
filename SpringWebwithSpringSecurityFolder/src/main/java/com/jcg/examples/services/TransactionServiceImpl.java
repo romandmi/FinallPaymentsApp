@@ -30,7 +30,7 @@ public class TransactionServiceImpl implements TransactionService{
 			try {				
 				session.getTransaction().rollback();
 			} catch (RuntimeException rbe) {
-				System.err.println("Couldn’t roll back transaction" + rbe);
+                logger.error("Exception in rollback", rbe);
 			}
 		} finally {
 			if(session != null) {				
@@ -54,6 +54,8 @@ public class TransactionServiceImpl implements TransactionService{
 			q.setParameter("id", id);
 			tr_list = q.list();
 		} catch (RuntimeException e) {
+            logger.error("Exception in selectAll",
+                    new RuntimeException("Error while transaction performing"));
 			throw new RuntimeException("Error while transaction performing");
 		} finally {
 			if(session != null) {
@@ -82,12 +84,16 @@ public class TransactionServiceImpl implements TransactionService{
 				try {
 					if(tx != null) tx.rollback();
 				} catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
 					throw new RuntimeException("Rollback error");
 				}
+                logger.error("Exception in deleteById",
+                        new RuntimeException("Error while performing transaction"));
 				throw new RuntimeException("Error while performing transaction");
 			}
 
 		} catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
 			throw new RuntimeException(e1.getMessage());
 		} finally {
 			if(sess != null) sess.close();

@@ -112,7 +112,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         if(bankAccount == null) {
             logger.error("Exception in bankAccount", new RuntimeException("BankAccount  not found"));
-            throw new RuntimeException("BankAccount  not found");
+            throw new RuntimeException("BankAccount not found");
         }
         return bankAccount;
 
