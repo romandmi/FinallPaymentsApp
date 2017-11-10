@@ -1,6 +1,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
 <html>
   <head><title>Transactions List</title>
     <jsp:include page="includeFile.jsp"></jsp:include>
@@ -8,17 +10,17 @@
   <body>
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
-    <h1>List of the transactions</h1>
+    <h1><fmt:message key = "ListOfTransactions" /></h1>
 <table class="table table-striped">
 <thead>
   <tr>
-        <td>Index</td>
-        <td>ID</td>
-        <td>Data</td>
-        <td>Sum</td>
-        <td>Type of transaction</td>
-        <td>ID of card</td>
-        <td>ID of client</td>
+        <td><fmt:message key = "Index" /></td>
+        <td><fmt:message key = "ID" /></td>
+        <td><fmt:message key = "Date" /></td>
+        <td><fmt:message key = "Sum" /></td>
+        <td><fmt:message key = "TypeOfTransaction" /></td>
+        <td><fmt:message key = "CardID" /></td>
+        <td><fmt:message key = "ClientID" /></td>
    </tr>
    </thead>
    <tbody>

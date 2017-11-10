@@ -4,17 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
 
-<c:set var="current" value="${param.ddlLanguage}"/>
-<c:if test="${not empty current}">
-    <fmt:setLocale value = "current"/>
-</c:if>
-    <c:if test="${current == 'ru_RU'}">
-   <fmt:setLocale value="ru_RU"/>
-  </c:if>
-  <c:if test="${current == 'en_US'}">
-     <fmt:setLocale value="en_US"/>
-   </c:if>
-
 <html>
   <head><title>Users List</title>
     <jsp:include page="includeFile.jsp"></jsp:include>

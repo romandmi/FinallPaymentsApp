@@ -1,6 +1,7 @@
 package com.jcg.examples.services;
 
 import com.jcg.examples.models.BankAccount;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BankAccountServiceImpl implements BankAccountService {
+
+    private static final Logger logger = Logger.getLogger(BankAccountServiceImpl.class);
+
     @Override
     public List<BankAccount> selectAll() {
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
@@ -21,6 +25,7 @@ public class BankAccountServiceImpl implements BankAccountService {
             Query q = session.createQuery("from BankAccount");
             tr_list = q.list();
         } catch (RuntimeException e) {
+            logger.error("Exception in selectAll", new RuntimeException("Error while transaction performing"));
             throw new RuntimeException("Error while transaction performing");
         } finally {
             if(session != null) {
@@ -53,12 +58,16 @@ public class BankAccountServiceImpl implements BankAccountService {
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -87,18 +96,24 @@ public class BankAccountServiceImpl implements BankAccountService {
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction", new RuntimeException("Error while making query"));
                 throw new RuntimeException("Error while making query");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
         }
 
-        if(bankAccount == null) throw new RuntimeException("BankAccount  not found");
+        if(bankAccount == null) {
+            logger.error("Exception in bankAccount", new RuntimeException("BankAccount  not found"));
+            throw new RuntimeException("BankAccount not found");
+        }
         return bankAccount;
 
     }
@@ -122,12 +137,16 @@ public class BankAccountServiceImpl implements BankAccountService {
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -154,11 +173,15 @@ public class BankAccountServiceImpl implements BankAccountService {
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -185,12 +208,16 @@ public class BankAccountServiceImpl implements BankAccountService {
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+                    logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+                logger.error("Exception in transaction",
+                        new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
 
         } catch (RuntimeException e1) {
+            logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();

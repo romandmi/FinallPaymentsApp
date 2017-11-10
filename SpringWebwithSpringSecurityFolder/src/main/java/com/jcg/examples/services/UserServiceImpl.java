@@ -1,5 +1,6 @@
 package com.jcg.examples.services;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,12 +12,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService{
-	
+
+	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 	//private SessionFactory sf;
 	
 	public User findByLog(String log){
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
-		
 		Session sess = null;
 		User user = null;
 		
@@ -35,19 +36,24 @@ public class UserServiceImpl implements UserService{
 				try {
 					if(tx != null) tx.rollback();
 				} catch (Exception e3) {
+					logger.error("Exception in rollback", new RuntimeException("Rollback error"));
 					throw new RuntimeException("Rollback error");
-				}	
+				}
+				logger.error("Exception in transaction", new RuntimeException("Error while making query"));
 				throw new RuntimeException("Error while making query");
 			}
 			
 		} catch (RuntimeException e1) {
+			logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
 			throw new RuntimeException(e1.getMessage());
 		} finally {
 			if(sess != null) sess.close();
 		}
 		
-		if(user == null)
-		    throw new RuntimeException("User not found");
+		if(user == null) {
+			logger.error("Exception in findByLog", new RuntimeException("User not found"));
+			throw new RuntimeException("User not found");
+		}
 		return user;
 	}
 
@@ -72,18 +78,24 @@ public class UserServiceImpl implements UserService{
 				try {
 					if(tx != null) tx.rollback();
 				} catch (Exception e3) {
+					logger.error("Exception in rollback", new RuntimeException("Rollback error"));
 					throw new RuntimeException("Rollback error");
 				}
+				logger.error("Exception in transaction", new RuntimeException("Error while making query"));
 				throw new RuntimeException("Error while making query");
 			}
 
 		} catch (RuntimeException e1) {
+			logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
 			throw new RuntimeException(e1.getMessage());
 		} finally {
 			if(sess != null) sess.close();
 		}
 
-		if(user == null) throw new RuntimeException("User not found");
+		if(user == null) {
+			logger.error("Exception in findById", new RuntimeException("User not found"));
+			throw new RuntimeException("User not found");
+		}
 		return user;
 
 	}
@@ -108,12 +120,16 @@ public class UserServiceImpl implements UserService{
 				try {
 					if(tx != null) tx.rollback();
 				} catch (Exception e3) {
+					logger.error("Exception in rollback", new RuntimeException("Rollback error"));
 					throw new RuntimeException("Rollback error");
-				}				
+				}
+				logger.error("Exception in transaction",
+						new RuntimeException("Error while performing transaction"));
 				throw new RuntimeException("Error while performing transaction");
 			}
 			
 		} catch (RuntimeException e1) {
+			logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
 			throw new RuntimeException(e1.getMessage());
 		} finally {
 			if(sess != null) sess.close();
@@ -140,11 +156,15 @@ public class UserServiceImpl implements UserService{
                 try {
                     if(tx != null) tx.rollback();
                 } catch (Exception e3) {
+					logger.error("Exception in rollback", new RuntimeException("Rollback error"));
                     throw new RuntimeException("Rollback error");
                 }
+				logger.error("Exception in transaction",
+						new RuntimeException("Error while performing transaction"));
                 throw new RuntimeException("Error while performing transaction");
             }
         } catch (RuntimeException e1) {
+			logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
             throw new RuntimeException(e1.getMessage());
         } finally {
             if(sess != null) sess.close();
@@ -171,12 +191,16 @@ public class UserServiceImpl implements UserService{
 				try {
 					if(tx != null) tx.rollback();
 				} catch (Exception e3) {
+					logger.error("Exception in rollback", new RuntimeException("Rollback error"));
 					throw new RuntimeException("Rollback error");
-				}				
+				}
+				logger.error("Exception in transaction",
+						new RuntimeException("Error while performing transaction"));
 				throw new RuntimeException("Error while performing transaction");
 			}
 			
 		} catch (RuntimeException e1) {
+			logger.error("Exception in openSession", new RuntimeException(e1.getMessage()));
 			throw new RuntimeException(e1.getMessage());
 		} finally {
 			if(sess != null) sess.close();
@@ -196,6 +220,8 @@ public class UserServiceImpl implements UserService{
 			Query q = session.createQuery("from User");
 			us_list = q.list();
 		} catch (RuntimeException e) {
+			logger.error("Exception in transaction",
+					new RuntimeException("Error while transaction performing"));
 			throw new RuntimeException("Error while transaction performing");
 		} finally {
 			if(session != null) {				
