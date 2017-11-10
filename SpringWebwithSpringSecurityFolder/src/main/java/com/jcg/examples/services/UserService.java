@@ -11,39 +11,39 @@ import java.util.List;
  */
 public interface UserService {
 	/**
-	 * This method find user by his login in database
+	 * This method finds user by login in database
 	 * @param log user's login
 	 * @return user
 	 */
 	User findByLog(String log);
 
 	/**
-	 * This method find user by his id in database
+	 * This method finds user by id in database
 	 * @param id user's id
 	 * @return user
 	 */
 	User findById(long id);
 
 	/**
-	 * This method save user in database
+	 * This method saves user in database
 	 * @param user user
 	 */
     void save(User user);
 
 	/**
-	 * This method update user in database
+	 * This method updates user in database
 	 * @param user user
 	 */
 	void update(User user);
 
 	/**
-	 * This method delete user by his id in database
+	 * This method deletes user by id in database
 	 * @param id user's id
 	 */
 	void deleteById(Long id);
 
 	/**
-	 * This method select all user from database
+	 * This method selects all users from database
 	 * @return list of users
 	 */
 	List<User> selectAll();
