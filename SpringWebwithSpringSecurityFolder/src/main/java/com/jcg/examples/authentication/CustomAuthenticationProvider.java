@@ -54,7 +54,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     /**
-     * This method return user if we can find him
+     * This method returns user if we can find him
      * @param userName user's login
      * @param password user's password
      * @return user
