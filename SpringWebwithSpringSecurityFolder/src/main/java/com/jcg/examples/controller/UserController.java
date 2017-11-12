@@ -191,8 +191,8 @@ public class UserController {
     }
 
     /**
-     *
-     * @return
+     *Shows transaction for admin
+     * @return m
      */
     @RequestMapping(value = "/admin/show_transactions", method = RequestMethod.GET)
     public ModelAndView showAllTransactions() {
@@ -202,6 +202,10 @@ public class UserController {
         return m;
     }
 
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/admin/show_users", method = RequestMethod.GET)
     public ModelAndView showAllUsers() {
         ModelAndView m = new ModelAndView("showUsers");
@@ -240,6 +244,11 @@ public class UserController {
         return m;
     }
 
+    /**
+     * Changes users bank account status.
+     * @param id bank account's id.
+     * @return redirect to updated /user/show_user_bank-accounts.
+     */
     @RequestMapping(value = "/user/show_user_bank-accounts/change_status/{id}", method = RequestMethod.GET)
     public String changeUserBankAccountStatus(@PathVariable("id") long id){
         try {
@@ -267,7 +276,7 @@ public class UserController {
     }
 
     /**
-     * This method blocks or unblocks bank account by pushing button block/undlock by admin.
+     * This method blocks or unblocks bank account by pushing button block/unblock by admin.
      * @param id of bank account
      * @return updated /admin/show_bank-accounts page.
      */
@@ -317,7 +326,10 @@ public class UserController {
         return "redirect:/admin/show_bank-accounts";
     }
 
-
+    /**
+     * This method shows clients for admin
+     * @return m
+     */
     @RequestMapping(value = "/admin/show_clients")
     public ModelAndView showClients(){
         ModelAndView m = new ModelAndView("showClients");
@@ -334,8 +346,8 @@ public class UserController {
     }
 
     /**
-     *
-     * @return
+     * Shows page (view) "createClientByAdmin"
+     * @return view "createClientByAdmin"
      */
     @RequestMapping(value = "/admin/create_client", method = RequestMethod.GET)
     public ModelAndView createClient(){
@@ -361,6 +373,11 @@ public class UserController {
         return "redirect:/admin/show_clients";
     }
 
+    /**
+     * This method moves to "updateClientByAdmin" view.
+     * @param id cliet id
+     * @return "updateClientByAdmin"
+     */
     @RequestMapping(value = "/admin/update_client/{id}", method = RequestMethod.GET)
     public ModelAndView updateClient(@PathVariable("id") long id){
         ModelAndView m = new ModelAndView("updateClientByAdmin");
@@ -586,7 +603,11 @@ public class UserController {
         return "redirect:/admin/show_users";
     }
 
-
+    /**
+     * 
+     * @param request getting request from /admin/delete_users page
+     * @return
+     */
     @RequestMapping(value = "/admin/delete_users")
     public ModelAndView delete(HttpServletRequest request) {
         List<User> users = userService.selectAll();
