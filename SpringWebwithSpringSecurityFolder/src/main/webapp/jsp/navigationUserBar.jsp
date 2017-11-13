@@ -27,7 +27,7 @@
                       <li><a href="/SpringWebwithSpringSecurity/user/add_funds"><fmt:message key = "AddFunds"/></a></li>
                     </ul>
              </li>
-            <li><a href="/SpringWebwithSpringSecurity/user/about"><fmt:message key = "About"/></a></li>
+
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><fmt:message key = "ChooseLanguage"/>
                 <span class="caret"></span></a>

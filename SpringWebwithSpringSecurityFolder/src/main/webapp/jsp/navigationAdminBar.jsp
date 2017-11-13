@@ -31,7 +31,7 @@
             <!-- <li><a href="/SpringWebwithSpringSecurity/admin/delete_users">Multiple users deleting</a></li> -->
             <li><a href="/SpringWebwithSpringSecurity/admin/find"><fmt:message key = "FindUser"/></a></li>
             <li><a href="/SpringWebwithSpringSecurity/admin/show_transactions"><fmt:message key = "ShowTransactions"/></a></li>
-            <li><a href="/SpringWebwithSpringSecurity/admin/about"><fmt:message key = "About"/></a></li>
+
             <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><fmt:message key = "ChooseLanguage"/>
                     <span class="caret"></span></a>
