@@ -55,24 +55,6 @@ public class UserController {
     }
 
     /**
-     * Moves to user/about page
-     * @return aboutUserPage.jsp
-     */
-    @RequestMapping(value = "/user/about", method = RequestMethod.GET)
-    public String aboutUser() {
-        return "aboutUserPage";
-    }
-
-    /**
-     * Moves to admin/about page
-     * @return aboutAdminPage.jsp
-     */
-    @RequestMapping(value = "/admin/about", method = RequestMethod.GET)
-    public String aboutAdmin() {
-        return "aboutAdminPage";
-    }
-
-    /**
      * Shows users transactions.
      * @return
      */
