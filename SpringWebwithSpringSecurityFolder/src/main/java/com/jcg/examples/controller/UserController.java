@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.jcg.examples.forms.ListUserForm;
-import com.jcg.examples.forms.UserRow;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -597,48 +595,9 @@ public class UserController {
             userService.deleteById(id);
         } catch (RuntimeException e) {
             logger.error(e.getMessage());
-            //m.addAttribute("error", e.getMessage()); ///////////////////////////////////////////////????????
             return "createUserByAdmin";
         }
         return "redirect:/admin/show_users";
-    }
-
-    /**
-     * 
-     * @param request getting request from /admin/delete_users page
-     * @return
-     */
-    @RequestMapping(value = "/admin/delete_users")
-    public ModelAndView delete(HttpServletRequest request) {
-        List<User> users = userService.selectAll();
-        List <UserRow>  ur = new ArrayList<UserRow>();
-        for (User u: users) {
-            ur.add(new UserRow(u));
-        }
-        ListUserForm l = new ListUserForm();
-        l.setList(ur);
-        return new ModelAndView("deleteUsers","ListUserForm",l);
-    }
-
-    @RequestMapping(value = "/admin/delete", method = RequestMethod.POST)
-    public String delete(@ModelAttribute("ListUserForm") ListUserForm listUserForm, BindingResult result) {
-        //TODO
-        try{
-            List<UserRow>  selectedList = listUserForm.getList();
-            List<Long> id = new ArrayList();
-            for (UserRow ur : selectedList) {
-                if (ur.isCheckControl() == false) {
-                    id.add(ur.getUser().getId());
-                }
-            }
-            System.out.println(selectedList);
-            for (int i = 0; i < id.size(); i++) {
-                userService.deleteById(id.get(i));
-            }
-        } catch(Exception e){
-            logger.error(e.getMessage());
-        }
-        return "redirect:/admin/delete_users";
     }
 
     /**

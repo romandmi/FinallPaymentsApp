@@ -23,7 +23,7 @@
 <jsp:include page="navigationAdminBar.jsp"></jsp:include>
 <div class="container">
 <fmt:bundle basename = "messages">
-    <h2><fmt:message key = "WelcomeAdmin" /></h2>
+    <h2><fmt:message key = "WelcomeAdmin" /> <%= request.getUserPrincipal().getName() %></h2>
 </fmt:bundle>
 </div>
 </body>

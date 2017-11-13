@@ -11,7 +11,7 @@
 
 <jsp:include page="navigationUserBar.jsp"></jsp:include>
 <div class="container">
-    <h2><fmt:message key = "WelcomeUser"/></h2>
+    <h2><fmt:message key = "WelcomeUser"/> <%= request.getUserPrincipal().getName() %></h2>
 </div>
 </body>
 </html>
