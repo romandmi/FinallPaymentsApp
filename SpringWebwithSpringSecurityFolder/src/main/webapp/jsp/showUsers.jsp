@@ -12,7 +12,7 @@
   <jsp:include page="navigationAdminBar.jsp"></jsp:include>
   <div class="container">
 
- 
+
   	<fmt:bundle basename = "messages">
     <h1><fmt:message key = "ListOfUsers" /><br/></h1>
     <a class="btn btn-success pull-right" href="<c:url value="/admin/create"/>" role="button"><fmt:message key = "CreateBtn" /><br/></a>
@@ -20,7 +20,7 @@
 <table class="table table-striped">
 <thead>
   <tr>
-  
+
 
         <fmt:bundle basename = "messages">
          <td><fmt:message key = "Index" /><br/></td>
@@ -28,7 +28,7 @@
          <td><fmt:message key = "Login" /><br/></td>
          <td><fmt:message key = "Role"/><br/></td>
      	</fmt:bundle>
-  
+
    </tr>
    </thead>
    <tbody>

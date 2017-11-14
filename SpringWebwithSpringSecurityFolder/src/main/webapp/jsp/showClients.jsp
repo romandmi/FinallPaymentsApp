@@ -30,9 +30,7 @@
     <tr>
       <td><c:out value="${status.index + 1}"/></td>
       <td><c:out value="${client.id}"/></td>
-      <td><c:out value="${client.first_name}"/></td>
-      <td><c:out value="${client.last_name}"/></td>
-      <td><c:out value="${client.surname}"/></td>
+
       <td><a class="btn btn-primary" href="<c:url value="/admin/update_client/${client.id}"/>" role="button"><fmt:message key = "UpdateBtn"/></a></td>
       <td><a class="btn btn-danger" href="<c:url value="/admin/delete_client/${client.id}"/>" role="button"><fmt:message key = "DeleteBtn"/></a></td>
     </tr>

@@ -171,7 +171,7 @@ public class UserController {
     }
 
     /**
-     *Shows transaction for admin
+     *Shows transaction for admin.
      * @return m
      */
     @RequestMapping(value = "/admin/show_transactions", method = RequestMethod.GET)
@@ -617,6 +617,8 @@ public class UserController {
         ModelAndView m = new ModelAndView("registration");
         return m;
     }
+
+
 
 }
 

@@ -23,7 +23,7 @@
                     <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a href="/SpringWebwithSpringSecurity/admin/show_users"><fmt:message key = "ManageUsers"/></a></li>
-                      <li><a href="/SpringWebwithSpringSecurity/admin/show_clients"><fmt:message key = "ManageClients"/></a></li>
+                    <!-- <li><a href="/SpringWebwithSpringSecurity/admin/show_clients"><fmt:message key = "ManageClients"/></a></li> -->
                       <li><a href="/SpringWebwithSpringSecurity/admin/show_cards"><fmt:message key = "ManageCards"/></a></li>
                       <li><a href="/SpringWebwithSpringSecurity/admin/show_bank-accounts"><fmt:message key = "ManageBankAccounts"/></a></li>
                     </ul>
